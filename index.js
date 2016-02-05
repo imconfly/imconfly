@@ -4,11 +4,9 @@
 
 const CONTAINERS = {
   vek: {
-    root: 'http://www.vek-dverey.ru',
+    root: 'http://www.vek-dverey.ru/media',
     transforms: {
-      big: 'big',
-      medium: 'medium',
-      small: 'convert -define png:size=240x180 {source} -thumbnail 120x90 {destination}'
+      square_200x200: 'convert {source} -resize 200x200 -background white -gravity center -extent 200x200 {destination}'
     }
   }
 };
@@ -35,21 +33,22 @@ http.createServer(function(request, response) {
     staticServer.serve(request, response, function (e, res) {
         if (e && (e.status === 404)) {
           try {
-            r = requestParser(request)
+            var r = requestParser(request);
           } catch (err) {
-            console.log(err);
             response.writeHead(404, {"Content-Type": "text/plain"});
             response.write('HTTP 404 - Not Found');
             response.end();
             return;
           }
-          action(r, function() {
-            // response.writeHead(200, {"Content-Type": "text/plain"});
-            // response.write('dummy');
-            // response.end();
-            relative = r.locals[r.transName].replace(STORAGE_ROOT, '');
-            console.log(relative);
-            staticServer.serveFile(relative, 200, {}, request, response);
+          action(r, function(err) {
+            if (err) {
+              response.writeHead(404, {"Content-Type": "text/plain"});
+              response.write('HTTP 404 - Not Found. (Request to origin error)');
+              response.end();
+            } else {
+              relative = r.locals[r.transName].replace(STORAGE_ROOT, '');
+              staticServer.serveFile(relative, 200, {}, request, response);
+            }
           });
         }
     });
@@ -84,18 +83,16 @@ function requestParser(request) {
 }
 
 function action(r, callback) {
-  console.log(r);
   if (r.transName === 'origin') {
-    console.log('Original img');
     getOrigin(r, callback);
   } else {
     getOrigin(r, function() {
-      console.log(r.transform);
       var source = r.locals.origin;
       var dest = r.locals[r.transName];
       var destDirname = path.dirname(dest);
       mkdirp.sync(destDirname);
       var transform = r.transform.replace('{source}', source).replace('{destination}', dest);
+      console.log(transform);
       exec(transform);
       callback();
     });
@@ -109,17 +106,22 @@ function getOrigin(r, callback) {
   } else {
     var dirname = path.dirname(r.locals.origin);
     mkdirp.sync(dirname);
-    request(r.origin).pipe(
-      fs.createWriteStream(r.locals.origin)
-    ).on('finish', callback);
+    request
+      .get(r.origin)
+      //.on('response', function(response) {
+      //  if (response.statusCode == 404) {
+      //    //callback(404);
+      //  }
+      //})
+      .pipe(fs.createWriteStream(r.locals.origin))
+      .on('finish', callback)
   }
 }
 
 function fileExists(filePath) {
   try {
     return fs.statSync(filePath).isFile();
-  }
-  catch (err) {
+  } catch (err) {
     return false;
   }
 }
