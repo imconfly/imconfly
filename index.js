@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-// todo: this is a very bad implementation, i want streams-based solution!
+// todo: SAFETY CHECK!
+// todo: this is a very bad implementation, i want a streams-based solution
 
 const CONF = {
   storage_root: `${__dirname}/STORAGE`,
@@ -23,8 +24,6 @@ const path = require('path');
 const nodeStatic = require('node-static');
 const shell = require('shelljs');
 
-mkdirp.sync(CONF.storage_root);
-
 // request: {service_url}/vek/square_200x200/klin/impex1.png
 
 var staticServer = new nodeStatic.Server(CONF.storage_root);
@@ -37,15 +36,13 @@ http.createServer(function(request, response) {
           var r = requestParser(request);
         } catch (err) {
           response.writeHead(404, {"Content-Type": "text/plain"});
-          response.write('HTTP 404 - Not Found');
-          response.end();
+          response.end('HTTP 404 - Not Found');
           return;
         }
         action(r, function(err) {
           if (err) {
             response.writeHead(404, {"Content-Type": "text/plain"});
-            response.write(`HTTP 404 - Not Found. (Request to origin error: ${err.message})`);
-            response.end();
+            response.end(`HTTP 404 - Not Found. (Request to origin error: ${err.message})`);
           } else {
             var relative = r.locals[r.transName].replace(CONF.storage_root, '');
             staticServer.serveFile(relative, 200, {}, request, response);
@@ -118,36 +115,29 @@ function action(r, callback) {
 }
 
 function getOrigin(r, callback) {
-  if (fileExists(r.locals.origin)) {
-    callback();
-  }
-  request.get(r.origin, {encoding: 'binary'}, function (err, response, body) {
-    if (err) {
-      console.error(err);
-      return callback(err);
-    }
-    if (response.statusCode != 200) {
-      return callback(new Error(`Response status code is ${response.statusCode}`));
-    }
-    var dirname = path.dirname(r.locals.origin);
-    mkdirp(dirname, function(err) {
-      if (err) {
-        callback(err);
-      }
-      fs.writeFile(r.locals.origin, body, 'binary', function (err) {
+  fs.stat(r.locals.origin, function(err, stats) {
+    if (!err && stats.isFile()) {
+      callback();
+    } else {
+      request.get(r.origin, {encoding: 'binary'}, function(err, response, body) {
         if (err) {
-          callback(err);
+          console.error(err);
+          return callback(err);
         }
-        callback();
+        if (response.statusCode != 200) {
+          callback(new Error(`Response status code is ${response.statusCode}`));
+        } else {
+          mkdirp(path.dirname(r.locals.origin), function(err) {
+            if (err) {
+              callback(err);
+            } else {
+              fs.writeFile(r.locals.origin, body, 'binary', function (err) {
+                callback(err);
+              });
+            }
+          });
+        }
       });
-    });
+    }
   });
-}
-
-function fileExists(path) {
-  try {
-    return fs.statSync(path).isFile();
-  } catch (err) {
-    return false;
-  }
 }
