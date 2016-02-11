@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 // todo: SAFETY CHECK!
+// todo: params for transforms validation
 // todo: this is a very bad implementation, i want a streams-based solution
 
 const CONF = {
@@ -10,8 +11,8 @@ const CONF = {
     vek: {
       root: 'http://www.vek-dverey.ru/media',
       transforms: {
-        square_400x400: 'convert {source} -resize 400x400 -background white -gravity center -extent 400x400 {destination}',
-        rectangle_160x400: 'convert {source} -resize 160x400 -background white -gravity center -extent 160x400 {destination}'
+        square_400x400: 'convert "{source}" -resize 400x400 -background white -gravity center -extent 400x400 "{destination}"',
+        rectangle_160x400: 'convert "{source}" -resize 160x400 -background white -gravity center -extent 160x400 "{destination}"'
       }
     }
   }
