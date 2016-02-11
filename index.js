@@ -10,8 +10,8 @@ const CONF = {
     vek: {
       root: 'http://www.vek-dverey.ru/media',
       transforms: {
-        square_200x200: 'convert {source} -resize 200x200 -background white -gravity center -extent 200x200 {destination}',
-        rectangle_80x200: 'convert {source} -resize 80x200 -background white -gravity center -extent 80x200 {destination}'
+        square_400x400: 'convert {source} -resize 400x400 -background white -gravity center -extent 400x400 {destination}',
+        rectangle_160x400: 'convert {source} -resize 160x400 -background white -gravity center -extent 160x400 {destination}'
       }
     }
   }
