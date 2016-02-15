@@ -9,7 +9,7 @@ const CONF = {
   port: 9988,
   containers: {
     vek: {
-      root: 'http://www.vek-dverey.ru/media',
+      root: 'http://188.225.73.93/media',
       transforms: {
         square_400x400: 'convert "{source}" -resize 400x400 -background white -gravity center -extent 400x400 "{destination}"',
         rectangle_160x400: 'convert "{source}" -resize 160x400 -background white -gravity center -extent 160x400 "{destination}"'
