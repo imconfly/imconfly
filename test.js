@@ -7,7 +7,7 @@ const PATH = 'nodejs-1024x768.png';
 
 require('co-mocha');
 var conf = require('./conf/test');
-var app = require('./imconfly');
+var app = require('./imconfly')(conf);
 var supertest = require('co-supertest');
 var rimraf = require('rimraf-promise');
 
@@ -40,13 +40,25 @@ describe('Common tests', function() {
       .expect(404);
   });
 
-  it('origin', function* () {
+  it('get origin', function* () {
     yield request
       .get(url(ORIGIN))
       .expect(200);
   });
 
-  it(`transform ${TRANSFORM}`, function* () {
+  it(`make transform ${TRANSFORM}`, function* () {
+    yield request
+      .get(url())
+      .expect(200);
+  });
+
+  it('serve origin', function* () {
+    yield request
+      .get(url(ORIGIN))
+      .expect(200);
+  });
+
+  it(`serve transform ${TRANSFORM}`, function* () {
     yield request
       .get(url())
       .expect(200);

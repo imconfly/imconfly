@@ -1,14 +1,14 @@
 {
-  "name": "imgserver",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "name": "imconfly",
+  "version": "0.0.2",
+  "description": "Web server for full-custom images conversion on-the-fly. Fast cache, low resources consumption.",
+  "main": "imconfly.js",
   "scripts": {
     "test": "mocha",
     "start": "./imconfly.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Ilya Erokhin",
+  "license": "MIT",
   "dependencies": {
     "mkdirp": "^0.5.1",
     "node-static": "^0.7.7",
