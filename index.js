@@ -4,19 +4,7 @@
 // todo: params for transforms validation
 // todo: this is a very bad implementation, i want a streams-based solution
 
-const CONF = {
-  storage_root: `${__dirname}/STORAGE`,
-  port: 9988,
-  containers: {
-    vek: {
-      root: 'http://188.225.73.93/media',
-      transforms: {
-        square_400x400: 'convert "{source}" -resize 400x400 -background white -gravity center -extent 400x400 "{destination}"',
-        rectangle_160x400: 'convert "{source}" -resize 160x400 -background white -gravity center -extent 160x400 "{destination}"'
-      }
-    }
-  }
-};
+var conf = require('./conf/test');
 
 const mkdirp = require('mkdirp');
 const http = require('http');
@@ -28,7 +16,7 @@ const shell = require('shelljs');
 
 // request: {service_url}/vek/square_200x200/klin/impex1.png
 
-var staticServer = new nodeStatic.Server(CONF.storage_root);
+var staticServer = new nodeStatic.Server(conf.storage_root);
 
 http.createServer(function(request, response) {
   request.addListener('end', function () {
@@ -46,14 +34,14 @@ http.createServer(function(request, response) {
             response.writeHead(404, {"Content-Type": "text/plain"});
             response.end(`HTTP 404 - Not Found. (Request to origin error: ${err.message})`);
           } else {
-            var relative = r.locals[r.transName].replace(CONF.storage_root, '');
+            var relative = r.locals[r.transName].replace(conf.storage_root, '');
             staticServer.serveFile(relative, 200, {}, request, response);
           }
         });
       }
     });
   }).resume();
-}).listen(CONF.port);
+}).listen(conf.port);
 
 function requestParser(request) {
   // requestInfo
@@ -63,12 +51,12 @@ function requestParser(request) {
   r.container = parts[1];
   r.transName = parts[2];
   r.relativePath = '/' + parts.slice(3, parts.lenght).join('/');
-  r.origin = CONF.containers[r.container].root + r.relativePath;
+  r.origin = conf.containers[r.container].root + r.relativePath;
 
   if (r.transName == 'origin') {
     r.transform = 'origin';
   } else {
-    r.transform = CONF.containers[r.container].transforms[r.transName];
+    r.transform = conf.containers[r.container].transforms[r.transName];
   }
 
   if (!(r.container && r.transName && r.relativePath && r.transform)) {
@@ -76,8 +64,8 @@ function requestParser(request) {
   }
 
   r.locals = {};
-  r.locals.origin = `${CONF.storage_root}/${r.container}/origin${r.relativePath}`;
-  r.locals[r.transName] = `${CONF.storage_root}/${r.container}/${r.transName}${r.relativePath}`;
+  r.locals.origin = `${conf.storage_root}/${r.container}/origin${r.relativePath}`;
+  r.locals[r.transName] = `${conf.storage_root}/${r.container}/${r.transName}${r.relativePath}`;
 
   return r;
 }
