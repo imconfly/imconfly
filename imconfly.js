@@ -14,34 +14,8 @@ const path = require('path');
 const nodeStatic = require('node-static');
 const shell = require('shelljs');
 
-// request: {service_url}/vek/square_200x200/klin/impex1.png
-
 var staticServer = new nodeStatic.Server(conf.storage_root);
 
-http.createServer(function(request, response) {
-  request.addListener('end', function () {
-    staticServer.serve(request, response, function (e, res) {
-      if (e && e.status == 404) {
-        try {
-          var r = requestParser(request);
-        } catch (err) {
-          response.writeHead(404, {"Content-Type": "text/plain"});
-          response.end('HTTP 404 - Not Found');
-          return;
-        }
-        action(r, function(err) {
-          if (err) {
-            response.writeHead(404, {"Content-Type": "text/plain"});
-            response.end(`HTTP 404 - Not Found. (Request to origin error: ${err.message})`);
-          } else {
-            var relative = r.locals[r.transName].replace(conf.storage_root, '');
-            staticServer.serveFile(relative, 200, {}, request, response);
-          }
-        });
-      }
-    });
-  }).resume();
-}).listen(conf.port);
 
 function requestParser(request) {
   // requestInfo
@@ -130,4 +104,34 @@ function getOrigin(r, callback) {
       });
     }
   });
+}
+
+var app = module.exports = http.createServer(function(request, response) {
+  request.addListener('end', function () {
+    staticServer.serve(request, response, function (e, res) {
+      if (e && e.status == 404) {
+        try {
+          var r = requestParser(request);
+        } catch (err) {
+          response.writeHead(404, {"Content-Type": "text/plain"});
+          response.end('HTTP 404 - Not Found');
+          return;
+        }
+        action(r, function(err) {
+          if (err) {
+            response.writeHead(404, {"Content-Type": "text/plain"});
+            response.end(`HTTP 404 - Not Found. (Request to origin error: ${err.message})`);
+          } else {
+            var relative = r.locals[r.transName].replace(conf.storage_root, '');
+            staticServer.serveFile(relative, 200, {}, request, response);
+          }
+        });
+      }
+    });
+  }).resume();
+});
+
+if (!module.parent) {
+  app.listen(conf.port);
+  console.log(`listening on port ${conf.port}`);
 }

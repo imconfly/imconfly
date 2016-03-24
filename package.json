@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "start": "./imconfly.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,5 +14,11 @@
     "node-static": "^0.7.7",
     "request": "^2.69.0",
     "shelljs": "^0.6.0"
+  },
+  "devDependencies": {
+    "co-mocha": "^1.1.2",
+    "co-supertest": "0.0.10",
+    "rimraf-promise": "^2.0.0",
+    "supertest": "^1.2.0"
   }
 }
