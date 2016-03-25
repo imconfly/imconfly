@@ -7,6 +7,8 @@
 const WRONG_REQUEST_FORMAT = 'HTTP 404 - Not Found.\n' +
                              'The format of the requested url don\'t match the current Imconfly configuration.';
 
+const DEFAULT_URL_CHECK = /^[\w\./_-]+$/;
+
 const fs = require('fs');
 const http = require('http');
 const path = require('path');
@@ -26,6 +28,11 @@ function Imconfly(conf) {
 }
 
 Imconfly.prototype.urlParser = function(url) {
+  var checker = this.conf.urlChecker || DEFAULT_URL_CHECK;
+  if (!checker.test(url)) {
+    throw new Error(`Requested URL "${url}" not match "${checker}"`);
+  }
+
   // requestInfo
   var r = {};
 
@@ -33,8 +40,14 @@ Imconfly.prototype.urlParser = function(url) {
   r.container = parts[1];
   r.transName = parts[2];
 
-  // todo: check by whitelist! Very danger!
-  r.relativePath = path.normalize(path.sep + parts.slice(3, parts.lenght).join(path.sep));
+  var requestedPath = path.sep + parts.slice(3, parts.lenght).join(path.sep);
+  if (requestedPath == '/') {
+    throw new Error('No relative path in URL');
+  }
+  r.relativePath = path.normalize(requestedPath);
+  if (requestedPath != r.relativePath) {
+    throw new Error('Bad path');
+  }
 
   r.origin = this.conf.containers[r.container].root + r.relativePath;
 

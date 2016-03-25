@@ -13,13 +13,13 @@ const conf = require('../conf/test');
 const app = require('../imconfly')(conf);
 
 function url(path, transform, container) {
-  if (!container) {
+  if (container === undefined) {
     container = CONTAINER;
   }
-  if (!transform) {
+  if (transform === undefined) {
     transform = TRANSFORM;
   }
-  if (!path) {
+  if (path === undefined) {
     path = PATH;
   }
   return `/${container}/${transform}/${path}`;
@@ -39,18 +39,12 @@ describe('Components tests', function() {
     assert.throws(() => {app.urlParser(url(PATH, 'invalid'))});
   });
 
-  //it('urlParser - invalid path', () => {
-  //  //assert.throws(() => {app.urlParser(url('&'))});
-  //  //assert.throws(() => {app.urlParser(url('..'))});
-  //  //assert.throws(() => {app.urlParser(url(''))});
-  //  //assert.throws(() => {app.urlParser(url('/'))});
-  //  var bad = [
-  //    '../../../../../../something',
-  //    ' &^ a` ad ....'
-  //  ];
-  //  for (let i = 0; i < bad.length; i++) {
-  //    let r = app.urlParser(url(bad[i]));
-  //    console.log(bad[i], r.relativePath, path.parse(r.relativePath), '\n\n');
-  //  }
-  //});
+  it('urlParser - invalid path', () => {
+    assert.throws(() => {app.urlParser(url('&'))});
+    assert.throws(() => {app.urlParser(url('..'))});
+    assert.throws(() => {app.urlParser(url(''))});
+    assert.throws(() => {app.urlParser(url('/'))});
+    assert.throws(() => {app.urlParser(url('"'))});
+    assert.throws(() => {app.urlParser(url('нельзя'))});
+  });
 });
