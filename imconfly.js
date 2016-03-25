@@ -1,126 +1,144 @@
 #!/usr/bin/env node
+'use strict';
 
 // todo: SAFETY CHECK!
 // todo: params for transforms validation
 
-var fs = require('fs');
-var http = require('http');
-var path = require('path');
+const WRONG_REQUEST_FORMAT = 'HTTP 404 - Not Found.\n' +
+                             'The format of the requested url don\'t match the current Imconfly configuration.';
 
-var mkdirp = require('mkdirp');
-var request = require('request');
-var nodeStatic = require('node-static');
-var shell = require('shelljs');
+const fs = require('fs');
+const http = require('http');
+const path = require('path');
 
-module.exports = function(conf) {
-  var staticServer = new nodeStatic.Server(conf.storage_root);
+const mkdirp = require('mkdirp');
+const request = require('request');
+const nodeStatic = require('node-static');
+const shell = require('shelljs');
 
-  function urlParser(url) {
-    // requestInfo
-    var r = {};
-
-    var parts = url.split('/');
-    r.container = parts[1];
-    r.transName = parts[2];
-    r.relativePath = '/' + parts.slice(3, parts.lenght).join('/');
-    r.origin = conf.containers[r.container].root + r.relativePath;
-
-    if (r.transName == 'origin') {
-      r.transform = 'origin';
-    } else {
-      r.transform = conf.containers[r.container].transforms[r.transName];
-    }
-
-    if (!(r.container && r.transName && r.relativePath && r.transform)) {
-      throw new Error();
-    }
-
-    r.locals = {};
-    r.locals.origin = `${conf.storage_root}/${r.container}/origin${r.relativePath}`;
-    r.locals[r.transName] = `${conf.storage_root}/${r.container}/${r.transName}${r.relativePath}`;
-
-    return r;
+function Imconfly(conf) {
+  if (!(this instanceof Imconfly)) {
+    return new Imconfly(conf);
   }
 
-  function action(r, callback) {
-    if (r.transName === 'origin') {
-      getOrigin(r, callback);
-    } else {
-      getOrigin(r, function (err) {
+  this.conf = conf;
+  this.staticServer = new nodeStatic.Server(conf.storage_root);
+}
+
+Imconfly.prototype.urlParser = function(url) {
+  // requestInfo
+  var r = {};
+
+  var parts = url.split('/');
+  r.container = parts[1];
+  r.transName = parts[2];
+
+  // todo: check by whitelist! Very danger!
+  r.relativePath = path.normalize(path.sep + parts.slice(3, parts.lenght).join(path.sep));
+
+  r.origin = this.conf.containers[r.container].root + r.relativePath;
+
+  if (r.transName == 'origin') {
+    r.transform = 'origin';
+  } else {
+    r.transform = this.conf.containers[r.container].transforms[r.transName];
+  }
+
+  if (!(r.container && r.transName && r.relativePath && r.transform)) {
+    throw new Error();
+  }
+
+  var originPath = path.join(this.conf.storage_root, r.container, 'origin' + r.relativePath);
+  var transformPath = path.join(this.conf.storage_root, r.container, r.transName + r.relativePath);
+
+  r.locals = {};
+  r.locals.origin = originPath;
+  r.locals[r.transName] = transformPath;
+
+  return r;
+};
+
+
+Imconfly.prototype.action = function (r, callback) {
+  if (r.transName === 'origin') {
+    this.getOrigin(r, callback);
+  } else {
+    this.getOrigin(r, err => {
+      if (err) {
+        callback(err);
+        return;
+      }
+      var source = r.locals.origin;
+      var dest = r.locals[r.transName];
+      var destDirname = path.dirname(dest);
+      mkdirp(destDirname, err => {
         if (err) {
           callback(err);
           return;
         }
-        var source = r.locals.origin;
-        var dest = r.locals[r.transName];
-        var destDirname = path.dirname(dest);
-        mkdirp(destDirname, function (err) {
-          if (err) {
-            callback(err);
+        var transform = r.transform.replace('{source}', source).replace('{destination}', dest);
+        shell.exec(transform, {async: true, silent: true}, (code, stdout, stderr) => {
+          if (code) {
+            console.error('Exit code:', code);
+            console.error('Program output:', stdout);
+            console.error('Program stderr:', stderr);
+            callback(new Error(`${code}: ${stderr}`));
+            return;
           }
-          var transform = r.transform.replace('{source}', source).replace('{destination}', dest);
-          shell.exec(transform, {async: true, silent: true}, function (code, stdout, stderr) {
-            if (code) {
-              console.error('Exit code:', code);
-              console.error('Program output:', stdout);
-              console.error('Program stderr:', stderr);
-              callback(new Error(`${code}: ${stderr}`));
-            }
-            callback();
-          });
+          callback();
         });
       });
-    }
+    });
   }
+};
 
-  function getOrigin(r, callback) {
-    fs.stat(r.locals.origin, function (err, stats) {
-      if (!err && stats.isFile()) {
-        callback();
+Imconfly.prototype.getOrigin = function (r, callback) {
+  fs.stat(r.locals.origin, (err, stats) => {
+    if (!err && stats.isFile()) {
+      callback();
+      return;
+    }
+    request.get(r.origin, {encoding: 'binary'}, (err, response, body) => {
+      if (err) {
+        console.error(err);
+        return callback(err);
+      }
+      if (response.statusCode != 200) {
+        callback(new Error(`Response status code is ${response.statusCode}`));
       } else {
-        request.get(r.origin, {encoding: 'binary'}, function (err, response, body) {
+        mkdirp(path.dirname(r.locals.origin), (err) => {
           if (err) {
-            console.error(err);
-            return callback(err);
+            callback(err);
+            return;
           }
-          if (response.statusCode != 200) {
-            callback(new Error(`Response status code is ${response.statusCode}`));
-          } else {
-            mkdirp(path.dirname(r.locals.origin), function (err) {
-              if (err) {
-                callback(err);
-              } else {
-                fs.writeFile(r.locals.origin, body, 'binary', function (err) {
-                  callback(err);
-                });
-              }
-            });
-          }
+          fs.writeFile(r.locals.origin, body, 'binary', callback);
         });
       }
     });
-  }
+  });
+};
 
-  return http.createServer(function (request, response) {
-    request.addListener('end', function () {
-      staticServer.serve(request, response, function (e) {
+Imconfly.prototype.listen = function() {
+  return http.createServer((request, response) => {
+    request.addListener('end', () => {
+      this.staticServer.serve(request, response, e => {
         if (e) {
           if (e.status == 404) {
             try {
-              var r = urlParser(request.url);
+              var r = this.urlParser(request.url);
             } catch (err) {
               response.writeHead(404, {'Content-Type': 'text/plain'});
-              response.end('HTTP 404 - Not Found');
+              response.end(WRONG_REQUEST_FORMAT);
               return;
             }
-            action(r, function (err) {
+            this.action(r, err => {
               if (err) {
                 response.writeHead(404, {'Content-Type': 'text/plain'});
                 response.end(`HTTP 404 - Not Found. (Request to origin error: ${err.message})`);
-              } else {
-                var relative = r.locals[r.transName].replace(conf.storage_root, '');
-                staticServer.serveFile(relative, 200, {}, request, response);
+                return;
               }
+              var relative = r.locals[r.transName].replace(this.conf.storage_root, '');
+              this.staticServer.serveFile(relative, 200, {}, request, response);
             });
           } else {
             response.writeHead(e.status, {'Content-Type': 'text/plain'});
@@ -129,12 +147,14 @@ module.exports = function(conf) {
         }
       });
     }).resume();
-  });
+  }).listen(this.conf.port);
 };
 
 if (!module.parent) {
-  var conf = require('./conf/imconfly-dev');
-  var app = module.exports(conf);
-  app.listen(conf.port);
+  let conf = require('./conf/imconfly-dev');
+  let app = Imconfly(conf);
+  app.listen();
   console.log(`listening on port ${conf.port}`);
+} else {
+  module.exports = Imconfly;
 }

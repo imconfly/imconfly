@@ -6,12 +6,13 @@ const TRANSFORM = 'square_200x200';
 const PATH = 'nodejs-1024x768.png';
 
 require('co-mocha');
-var conf = require('./conf/test');
-var app = require('./imconfly')(conf);
-var supertest = require('co-supertest');
-var rimraf = require('rimraf-promise');
+const supertest = require('co-supertest');
+const rimraf = require('rimraf-promise');
 
-var request = supertest.agent(app.listen(conf.port));
+const conf = require('../conf/test');
+const app = require('../imconfly')(conf);
+
+const request = supertest.agent(app.listen());
 
 function url(transform, path) {
   if (!transform) {
@@ -23,7 +24,7 @@ function url(transform, path) {
   return `/${CONTAINER}/${transform}/${path}`;
 }
 
-describe('Common tests', function() {
+describe('Server tests', function() {
   this.timeout(15000);
 
   before(function *() {
