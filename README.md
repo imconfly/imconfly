@@ -30,7 +30,7 @@ Corresponding configuration:
   "port": 9988,
   "containers": {
     "nodejs": {
-      "root": 'https://nodejs.org/static/images',
+      "root": "https://nodejs.org/static/images",
       "transforms": {
         "100x100-red": "convert \"{source}\" -resize 100x100 -background red -gravity center -extent 100x100 \"{destination}\""
       }
