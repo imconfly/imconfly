@@ -7,7 +7,7 @@
     "test": "mocha",
     "start": "./imconfly.js"
   },
-  "author": "Ilya Erokhin",
+  "author": "Ilya Erokhin <sniffsla@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "mkdirp": "^0.5.1",
