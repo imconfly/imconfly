@@ -77,18 +77,13 @@ Imconfly.prototype.action = function (r, callback) {
     this.getOrigin(r, callback);
   } else {
     this.getOrigin(r, err => {
-      if (err) {
-        callback(err);
-        return;
-      }
+      if (err) return callback(err);
+
       var source = r.locals.origin;
       var dest = r.locals[r.transName];
       var destDirname = path.dirname(dest);
       mkdirp(destDirname, err => {
-        if (err) {
-          callback(err);
-          return;
-        }
+        if (err) return callback(err);
         var transform = r.transform.replace('{source}', source).replace('{destination}', dest);
         shell.exec(transform, {async: true, silent: true}, (code, stdout, stderr) => {
           if (code) {
@@ -107,10 +102,8 @@ Imconfly.prototype.action = function (r, callback) {
 
 Imconfly.prototype.getOrigin = function (r, callback) {
   fs.stat(r.locals.origin, (err, stats) => {
-    if (!err && stats.isFile()) {
-      callback();
-      return;
-    }
+    if (!err && stats.isFile()) return callback();
+
     request.get(r.origin, {encoding: 'binary'}, (err, response, body) => {
       if (err) {
         console.error(err);
@@ -120,10 +113,7 @@ Imconfly.prototype.getOrigin = function (r, callback) {
         callback(new Error(`Response status code is ${response.statusCode}`));
       } else {
         mkdirp(path.dirname(r.locals.origin), (err) => {
-          if (err) {
-            callback(err);
-            return;
-          }
+          if (err) return callback(err);
           fs.writeFile(r.locals.origin, body, 'binary', callback);
         });
       }
