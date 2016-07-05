@@ -24,7 +24,7 @@ function Imconfly(conf) {
   }
 
   this.conf = conf;
-  this.staticServer = new nodeStatic.Server(conf.storage_root);
+  this.staticServer = new nodeStatic.Server(conf.storageRoot);
 }
 
 Imconfly.prototype.urlParser = function(url) {
@@ -61,8 +61,8 @@ Imconfly.prototype.urlParser = function(url) {
     throw new Error();
   }
 
-  var originPath = path.join(this.conf.storage_root, r.container, 'origin' + r.relativePath);
-  var transformPath = path.join(this.conf.storage_root, r.container, r.transName + r.relativePath);
+  var originPath = path.join(this.conf.storageRoot, r.container, 'origin' + r.relativePath);
+  var transformPath = path.join(this.conf.storageRoot, r.container, r.transName + r.relativePath);
 
   r.locals = {};
   r.locals.origin = originPath;
@@ -140,7 +140,7 @@ Imconfly.prototype.listen = function() {
                 response.end(`HTTP 404 - Not Found. (Request to origin error: ${err.message})`);
                 return;
               }
-              var relative = r.locals[r.transName].replace(this.conf.storage_root, '');
+              var relative = r.locals[r.transName].replace(this.conf.storageRoot, '');
               this.staticServer.serveFile(relative, 200, {}, request, response);
             });
           } else {

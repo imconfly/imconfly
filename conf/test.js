@@ -3,7 +3,7 @@
 var path = require('path');
 
 module.exports = {
-  storage_root: path.normalize(`${__dirname}/../TEST_STORAGE`),
+  storageRoot: path.normalize(`${__dirname}/../TEST_STORAGE`),
   port: 9989,
   containers: {
     nodejs: {

@@ -26,7 +26,7 @@ Corresponding configuration:
  
 ```json
 {
-  "storage_root": "/var/www/imconfly",
+  "storageRoot": "/var/www/imconfly",
   "port": 9988,
   "containers": {
     "nodejs": {
@@ -53,7 +53,7 @@ Transformed image can be found in
 
 This is result of:
 
- * `/var/www/imconfly` (storage_root setting) + 
+ * `/var/www/imconfly` (storageRoot setting) + 
  * `nodejs` (container name) + 
  * `100x100-red` (transformation name) + 
  * `logos/nodejs-1280x1024.png` (relative path) 
@@ -66,3 +66,49 @@ convert "/var/www/imconfly/nodejs/origin/logos/nodejs-1280x1024.png" -resize 100
 
 This is an expencive operation, and it performs once, on first-time request. 
 After this, the image will be served as a static file.
+
+Instllation
+-----------
+
+Use git to get source code:
+
+```
+$ git clone git@github.com:i-erokhin/imconfly.git
+$ cd imconfly
+```
+
+Install depedencies with npm:
+
+```
+$ npm i
+```
+
+For tests you need to install [Imagemagick](http://www.imagemagick.org/). Run tests:
+
+```
+$ npm test
+```
+
+Configuration
+-------------
+
+```
+$ cd conf
+$ cp imconfly-dev.js index.js
+```
+
+Now edit ```index.js```.
+
+### Global options
+
+* ```storageRoot``` - absolute path to directory with transformed images and origins
+* ```port``` - port to listen by Imconfly application (HTTP protocol)
+* ```urlChecker``` - regexp to check URL format on each request to Imconfly app (```/^[\w\./_-]+$/``` by default)
+* ```containers``` - dictonary of containers names. Names must correspond to ```urlChecker``` format.
+
+### Container options
+
+* ```root``` - http(s) URL with server name and path (```http://example.com/my/path```) or local filesystem path 
+  (```/my/path```).
+* ```transforms``` - dictonary of transforms in ```name: command``` format. Command must contains special placeholders - 
+  ```{source}``` and ```{destination}```. 
