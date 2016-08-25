@@ -6,3 +6,5 @@ before_script:
   - sudo apt-get install imagemagick
 script:
   - npm test
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
