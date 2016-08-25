@@ -145,7 +145,19 @@ http://127.0.0.1:9988/nodejs/square_200x200/nodejs-1280x1024.png
 Development
 -----------
 
-For tests you need to install [Imagemagick][imagemagick-url]. Run tests:
+For tests you need to install [Imagemagick][imagemagick-url]. On Debian/Ubuntu:
+
+```
+# apt-get install imagemagick
+```
+
+On OS X (with [Homebrew][homebrew-url]):
+
+```
+$ brew install imagemagick
+```
+
+Run tests:
 
 ```
 $ cd imconflySourcesDir
@@ -161,3 +173,4 @@ MIT
 [npm-url]: https://www.npmjs.com/package/imconfly
 [imagemagick-url]: http://www.imagemagick.org
 [nginx-url]: http://nginx.org
+[homebrew-url]: http://brew.sh
