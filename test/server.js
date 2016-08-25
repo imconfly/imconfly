@@ -28,11 +28,11 @@ describe('Server tests', function() {
   this.timeout(15000);
 
   before(function *() {
-    yield rimraf(conf.storage_root);
+    yield rimraf(conf.storageRoot);
   });
 
   after(function *() {
-    yield rimraf(conf.storage_root);
+    yield rimraf(conf.storageRoot);
   });
 
   it('homepage', function* () {

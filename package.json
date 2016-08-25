@@ -16,6 +16,7 @@
     "shelljs": "^0.6.0"
   },
   "devDependencies": {
+    "mocha": "^3.0.2",
     "co-mocha": "^1.1.2",
     "co-supertest": "0.0.10",
     "rimraf-promise": "^2.0.0",
