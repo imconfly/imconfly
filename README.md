@@ -171,6 +171,9 @@ MIT
 
 [npm-image]: https://img.shields.io/npm/v/imconfly.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/imconfly
+[travis-image]: https://img.shields.io/travis/i-erokhin/imconfly/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/i-erokhin/imconfly
 [imagemagick-url]: http://www.imagemagick.org
 [nginx-url]: http://nginx.org
 [homebrew-url]: http://brew.sh
+
