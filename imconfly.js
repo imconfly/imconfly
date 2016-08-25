@@ -1,9 +1,6 @@
 #!/usr/bin/env node
 'use strict';
 
-// todo: SAFETY CHECK!
-// todo: params for transforms validation
-
 const WRONG_REQUEST_FORMAT = 'HTTP 404 - Not Found.\n' +
                              'The format of the requested url don\'t match the current Imconfly configuration.';
 
