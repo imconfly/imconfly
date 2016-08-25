@@ -3,6 +3,7 @@ Imconfly
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
+[![Test coverage][coveralls-image]][coveralls-url]
 
 Web server for full-custom images conversion on-the-fly. Fast cache, low resources consumption.
 
@@ -174,6 +175,8 @@ MIT
 [npm-url]: https://www.npmjs.com/package/imconfly
 [travis-image]: https://img.shields.io/travis/i-erokhin/imconfly/master.svg?style=flat-square
 [travis-url]: https://travis-ci.org/i-erokhin/imconfly
+[coveralls-image]: https://img.shields.io/codecov/c/github/i-erokhin/imconfly.svg?style=flat-square
+[coveralls-url]: https://codecov.io/github/i-erokhin/imconfly?branch=master
 [imagemagick-url]: http://www.imagemagick.org
 [nginx-url]: http://nginx.org
 [homebrew-url]: http://brew.sh
