@@ -67,8 +67,8 @@ convert "/var/www/imconfly/nodejs/origin/logos/nodejs-1280x1024.png" -resize 100
 This is an expencive operation, and it performs once, on first-time request. 
 After this, the image will be served as a static file.
 
-Instllation
------------
+Installation
+------------
 
 Installation with npm as global module:
 
