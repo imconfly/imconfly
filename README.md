@@ -2,6 +2,7 @@ Imconfly
 ========
 
 [![NPM version][npm-image]][npm-url]
+[![build status][travis-image]][travis-url]
 
 Web server for full-custom images conversion on-the-fly. Fast cache, low resources consumption.
 
