@@ -5,12 +5,12 @@ Imconfly
 
 Web server for full-custom images conversion on-the-fly. Fast cache, low resources consumption.
 
-Imconfly uses CLI applications like [Imagemagick](http://www.imagemagick.org/) with full-custom set of
+Imconfly uses CLI applications like [Imagemagick][imagemagick-url] with full-custom set of
 parameters for images conversion. This is extremely flexible approach, you can create any transformation you
 need, using any CLI tool or bunch of CLI tools.
 
 On the other hand, Imconfly is designed for fast serving once transformed images with low resources consumption. These 
-images can be served by [Nginx](http://nginx.org/) or any fast-and-light static web server.
+images can be served by [Nginx][nginx-url] or any fast-and-light static web server.
 
 Quick example
 -------------
@@ -145,7 +145,7 @@ http://127.0.0.1:9988/nodejs/square_200x200/nodejs-1280x1024.png
 Development
 -----------
 
-For tests you need to install [Imagemagick](http://www.imagemagick.org/). Run tests:
+For tests you need to install [Imagemagick][imagemagick-url]. Run tests:
 
 ```
 $ cd imconflySourcesDir
@@ -159,3 +159,5 @@ MIT
 
 [npm-image]: https://img.shields.io/npm/v/imconfly.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/imconfly
+[imagemagick-url]: http://www.imagemagick.org
+[nginx-url]: http://nginx.org
