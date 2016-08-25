@@ -70,38 +70,65 @@ After this, the image will be served as a static file.
 Instllation
 -----------
 
-Use git to get source code:
+Installation with npm as global module:
 
 ```
-$ git clone git@github.com:i-erokhin/imconfly.git
-$ cd imconfly
-```
-
-Install depedencies with npm:
-
-```
-$ npm i
-```
-
-For tests you need to install [Imagemagick](http://www.imagemagick.org/). Run tests:
-
-```
-$ npm test
+$ npm i -g
 ```
 
 Configuration
 -------------
 
-```
-$ cd conf
-$ cp imconfly-dev.js index.js
+### imconfile
+
+``imconfly`` command needs to configuration file in current directory - ``imconfile.js`` or ``imconfile.json``. 
+
+For example:
+
+```javascript
+// imconfly.js
+
+module.exports = {
+  storageRoot: './STORAGE',
+  port: 9988,
+  containers: {
+    nodejs: {
+      root: 'https://nodejs.org/static/images/logos',
+      transforms: {
+        square_200x200: 'convert "{source}" -resize 200x200 -background red -gravity center -extent 200x200 "{destination}"'
+      }
+    }
+  }
+};
 ```
 
-Now edit ```index.js```.
+imconfly.json:
+
+
+```json
+{
+  "storageRoot": "./STORAGE",
+  "port": 9988,
+  "containers": {
+    "nodejs": {
+      "root": "https://nodejs.org/static/images/logos",
+      "transforms": {
+        "square_200x200": "convert \"{source}\" -resize 200x200 -background red -gravity center -extent 200x200 \"{destination}\""
+      }
+    }
+  }
+}
+```
+
+You can copy this to correspond file, run ``imconfly`` (in the same directory) and check it by this URL:
+
+```
+http://127.0.0.1:9988/nodejs/square_200x200/nodejs-1280x1024.png
+```
 
 ### Global options
 
-* ```storageRoot``` - absolute path to directory with transformed images and origins
+* ```storageRoot``` - path to directory with transformed images and origins
 * ```port``` - port to listen by Imconfly application (HTTP protocol)
 * ```urlChecker``` - regexp to check URL format on each request to Imconfly app (```/^[\w\./_-]+$/``` by default)
 * ```containers``` - dictonary of containers names. Names must correspond to ```urlChecker``` format.
@@ -112,3 +139,13 @@ Now edit ```index.js```.
   (```/my/path```).
 * ```transforms``` - dictonary of transforms in ```name: command``` format. Command must contains special placeholders - 
   ```{source}``` and ```{destination}```. 
+
+Development
+-----------
+
+For tests you need to install [Imagemagick](http://www.imagemagick.org/). Run tests:
+
+```
+$ cd imconflySourcesDir
+$ npm test
+```

@@ -1,9 +1,5 @@
-'use strict';
-
-var path = require('path');
-
 module.exports = {
-  storageRoot: path.normalize(`${__dirname}/../STORAGE`),
+  storageRoot: './STORAGE',
   port: 9988,
   containers: {
     nodejs: {

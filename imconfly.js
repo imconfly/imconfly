@@ -151,7 +151,7 @@ Imconfly.prototype.listen = function() {
 };
 
 if (!module.parent) {
-  let conf = require('./conf/index.js');
+  let conf = require('./imconfile');
   let app = Imconfly(conf);
   app.listen();
   console.log(`listening on port ${conf.port}`);
