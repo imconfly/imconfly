@@ -1,6 +1,8 @@
 Imconfly
 ========
 
+[![NPM version][npm-image]][npm-url]
+
 Web server for full-custom images conversion on-the-fly. Fast cache, low resources consumption.
 
 Imconfly uses CLI applications like [Imagemagick](http://www.imagemagick.org/) with full-custom set of
@@ -149,3 +151,11 @@ For tests you need to install [Imagemagick](http://www.imagemagick.org/). Run te
 $ cd imconflySourcesDir
 $ npm test
 ```
+
+License
+-------
+
+MIT
+
+[npm-image]: https://img.shields.io/npm/v/imconfly.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/imconfly
