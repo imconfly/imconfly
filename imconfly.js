@@ -16,6 +16,10 @@ const nodeStatic = require('node-static');
 const shell = require('shelljs');
 
 function Imconfly(conf) {
+  if(conf.storageRoot.startsWith('.')) {
+    conf.storageRoot = path.resolve(process.cwd(), conf.storageRoot);
+  }
+
   if (!(this instanceof Imconfly)) {
     return new Imconfly(conf);
   }
@@ -154,13 +158,10 @@ if (!module.parent) {
   let imconfile = path.resolve(process.cwd(), './imconfile');
   console.log(`Try to use configuration module: ${imconfile}`);
   let conf = require(imconfile);
-  if(conf.storageRoot.startsWith('.')) {
-    conf.storageRoot = path.resolve(process.cwd(), conf.storageRoot);
-  }
-  console.log(`Try to use ${conf.storageRoot} as storageRoot`);
   let app = Imconfly(conf);
   app.listen();
-  console.log(`listening on port ${conf.port}`);
+  console.log(`Try to use ${app.conf.storageRoot} as storageRoot`);
+  console.log(`listening on port ${app.conf.port}`);
 } else {
   module.exports = Imconfly;
 }

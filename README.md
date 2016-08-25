@@ -143,6 +143,18 @@ http://127.0.0.1:9988/nodejs/square_200x200/nodejs-1280x1024.png
   (```/my/path```).
 * ```transforms``` - dictonary of transforms in ```name: command``` format. Command must contains special placeholders - 
   ```{source}``` and ```{destination}```. 
+  
+API
+---
+
+You can use Imconfly inside your apps. For example:
+
+```javascript
+var conf = require('./imconfile');
+var app = require('imconfly')(conf);
+
+app.listen();
+```
 
 Development
 -----------
