@@ -154,6 +154,10 @@ if (!module.parent) {
   let imconfile = path.resolve(process.cwd(), './imconfile');
   console.log(`Try to use configuration module: ${imconfile}`);
   let conf = require(imconfile);
+  if(conf.storageRoot.startsWith('.')) {
+    conf.storageRoot = path.resolve(process.cwd(), conf.storageRoot);
+  }
+  console.log(`Try to use ${conf.storageRoot} as storageRoot`);
   let app = Imconfly(conf);
   app.listen();
   console.log(`listening on port ${conf.port}`);
