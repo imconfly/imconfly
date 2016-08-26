@@ -76,7 +76,7 @@ After this, the image will be served as a static file.
 Installation
 ------------
 
-Installation with npm as global module:
+Installation with [NPM][npm-home-url] as global module:
 
 ```
 $ npm i -g imconfly
