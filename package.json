@@ -21,6 +21,9 @@
     "server",
     "imagemagick"
   ],
+  "engines" : {
+    "node" : ">=4.0.0"
+  },
   "main": "imconfly.js",
   "scripts": {
     "test": "mocha",
