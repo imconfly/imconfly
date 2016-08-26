@@ -26,7 +26,7 @@
   },
   "main": "imconfly.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha"
   },
   "bin": {
     "imconfly": "imconfly.js"
