@@ -27,10 +27,9 @@
   "main": "imconfly.js",
   "scripts": {
     "test": "mocha",
-    "start": "./imconfly.js"
   },
   "bin": {
-    "imconfly": "./imconfly.js"
+    "imconfly": "imconfly.js"
   },
   "dependencies": {
     "mkdirp": "^0.5.1",
