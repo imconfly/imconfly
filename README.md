@@ -1,4 +1,4 @@
-Imconfly
+imconfly
 ========
 
 [![NPM version][npm-image]][npm-url]
@@ -6,6 +6,8 @@ Imconfly
 [![Test coverage][coveralls-image]][coveralls-url]
 
 Web server for full-custom images conversion on-the-fly. Fast cache, low resources consumption.
+
+Written in JavaScript, powered by [Node.js][nodejs-url] and available as [NPM][npm-home-url] package.
 
 Imconfly uses CLI applications like [Imagemagick][imagemagick-url] with full-custom set of
 parameters for images conversion. This is extremely flexible approach, you can create any transformation you
@@ -77,7 +79,13 @@ Installation
 Installation with npm as global module:
 
 ```
-$ npm i -g
+$ npm i -g imconfly
+```
+
+Run:
+
+```
+$ imconfly
 ```
 
 Configuration
@@ -192,4 +200,6 @@ MIT
 [imagemagick-url]: http://www.imagemagick.org
 [nginx-url]: http://nginx.org
 [homebrew-url]: http://brew.sh
+[nodejs-url]: https://nodejs.org/en/
+[npm-home-url]: https://www.npmjs.com
 
