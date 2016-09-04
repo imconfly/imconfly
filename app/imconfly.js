@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 'use strict';
 
 const WRONG_REQUEST_FORMAT = 'HTTP 404 - Not Found.\n' +
@@ -154,14 +153,4 @@ Imconfly.prototype.listen = function() {
   }).listen(this.conf.port);
 };
 
-if (!module.parent) {
-  let imconfile = path.resolve(process.cwd(), './imconfile');
-  console.log(`Try to use configuration module: ${imconfile}`);
-  let conf = require(imconfile);
-  let app = Imconfly(conf);
-  app.listen();
-  console.log(`Try to use ${app.conf.storageRoot} as storageRoot`);
-  console.log(`listening on port ${app.conf.port}`);
-} else {
-  module.exports = Imconfly;
-}
+module.exports = Imconfly;

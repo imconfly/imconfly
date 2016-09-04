@@ -10,7 +10,7 @@ const supertest = require('co-supertest');
 const rimraf = require('rimraf-promise');
 
 const conf = require('../conf/test');
-const app = require('../imconfly')(conf);
+const app = require('../app/imconfly')(conf);
 
 const request = supertest.agent(app.listen());
 
