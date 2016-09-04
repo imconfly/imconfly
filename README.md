@@ -3,7 +3,7 @@ imconfly
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
-[![Test coverage][coveralls-image]][coveralls-url]
+<!-- [![Test coverage][coveralls-image]][coveralls-url] -->
 
 Web server for full-custom images conversion on-the-fly. Fast cache, low resources consumption.
 
@@ -190,8 +190,8 @@ $ npm test
 TODO
 ----
 
-* [Version 1.0.0](https://github.com/i-erokhin/imconfly/milestone/1)
-* [Version 1.1.0](https://github.com/i-erokhin/imconfly/milestone/2)
+* [Version 1.0.0](https://github.com/imconfly/imconfly/milestone/1)
+* [Version 1.1.0](https://github.com/imconfly/imconfly/milestone/2)
 
 [Changelog](https://github.com/i-erokhin/imconfly/blob/master/CHANGELOG.md)
 --------------------------------------------------------------------------
@@ -203,10 +203,10 @@ MIT
 
 [npm-image]: https://img.shields.io/npm/v/imconfly.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/imconfly
-[travis-image]: https://img.shields.io/travis/i-erokhin/imconfly/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/i-erokhin/imconfly
-[coveralls-image]: https://img.shields.io/codecov/c/github/i-erokhin/imconfly.svg?style=flat-square
-[coveralls-url]: https://codecov.io/github/i-erokhin/imconfly?branch=master
+[travis-image]: https://img.shields.io/travis/imconfly/imconfly/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/imconfly/imconfly
+[coveralls-image]: https://img.shields.io/codecov/c/github/imconfly/imconfly.svg?style=flat-square
+[coveralls-url]: https://codecov.io/github/imconfly/imconfly?branch=master
 [imagemagick-url]: http://www.imagemagick.org
 [nginx-url]: http://nginx.org
 [homebrew-url]: http://brew.sh
