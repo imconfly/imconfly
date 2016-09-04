@@ -44,5 +44,9 @@
     "co-supertest": "0.0.10",
     "rimraf-promise": "^2.0.0",
     "supertest": "^1.2.0"
-  }
+  },
+  "files": [
+    "app",
+    "cli"
+  ]
 }
