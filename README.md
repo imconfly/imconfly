@@ -186,6 +186,21 @@ $ cd imconflySourcesDir
 $ npm test
 ```
 
+
+TODO
+----
+
+### Version 1.0.0
+
+* Logger (probably *winston*)
+* Only **one** call to *get_origin* per time for container-trasform-imconfly_instance
+* Only **one** transform-process per time for container-trasform-imconfly_instance
+* Windows CI
+* Config generator for *Nginx*
+* denyOrigin setting (deny access to *origin* files)
+* Support chat on Gitter
+* Changelog
+
 License
 -------
 
