@@ -15,10 +15,6 @@ const nodeStatic = require('node-static');
 const shell = require('shelljs');
 
 function Imconfly(conf) {
-  if(conf.storageRoot.startsWith('.')) {
-    conf.storageRoot = path.resolve(process.cwd(), conf.storageRoot);
-  }
-
   if (!(this instanceof Imconfly)) {
     return new Imconfly(conf);
   }

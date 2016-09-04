@@ -93,7 +93,7 @@ Configuration
 
 ### imconfile
 
-``imconfly`` command needs to configuration file in current directory - ``imconfile.js`` or ``imconfile.json``. 
+``imconfly`` command needs to configuration file in the current directory or in a some parent directory - ``imconfile.js`` or ``imconfile.json``. 
 
 For example:
 
@@ -132,7 +132,7 @@ imconfly.json:
 }
 ```
 
-You can copy this to correspond file, run ``imconfly`` (in the same directory) and check it by this URL:
+You can copy this to correspond file, run ``imconfly`` and check it by this URL:
 
 ```
 http://127.0.0.1:9988/nodejs/square_200x200/nodejs-1280x1024.png
@@ -193,7 +193,7 @@ TODO
 * [Version 1.0.0](https://github.com/imconfly/imconfly/milestone/1)
 * [Version 1.1.0](https://github.com/imconfly/imconfly/milestone/2)
 
-[Changelog](https://github.com/i-erokhin/imconfly/blob/master/CHANGELOG.md)
+[Changelog](https://github.com/imconfly/imconfly/blob/master/CHANGELOG.md)
 --------------------------------------------------------------------------
 
 License
@@ -212,4 +212,3 @@ MIT
 [homebrew-url]: http://brew.sh
 [nodejs-url]: https://nodejs.org/en/
 [npm-home-url]: https://www.npmjs.com
-
