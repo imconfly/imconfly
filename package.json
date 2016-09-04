@@ -1,6 +1,6 @@
 {
   "name": "imconfly",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Web server for full-custom images conversion on-the-fly. Fast cache, low resources consumption.",
   "license": "MIT",
   "author": {
@@ -21,8 +21,8 @@
     "server",
     "imagemagick"
   ],
-  "engines" : {
-    "node" : ">=4.0.0"
+  "engines": {
+    "node": ">=4.0.0"
   },
   "main": "app/imconfly.js",
   "scripts": {
