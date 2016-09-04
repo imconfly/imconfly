@@ -190,16 +190,16 @@ $ npm test
 TODO
 ----
 
-### Version 1.0.0
+### [Version 1.0.0](https://github.com/i-erokhin/imconfly/milestone/1)
 
-* Logger (probably *winston*)
-* Only **one** call to *get_origin* per time for container-trasform-imconfly_instance
-* Only **one** transform-process per time for container-trasform-imconfly_instance
-* Windows CI
-* Config generator for *Nginx*
-* denyOrigin setting (deny access to *origin* files)
-* Support chat on Gitter
-* Changelog
+* [#2](https://github.com/i-erokhin/imconfly/issues/2) Logger (probably *winston*)
+* [#3](https://github.com/i-erokhin/imconfly/issues/3) Only **one** call to *get_origin* per time for container-trasform-imconfly_instance
+* [#4](https://github.com/i-erokhin/imconfly/issues/4) Only **one** transform-process per time for container-trasform-imconfly_instance
+* [#5](https://github.com/i-erokhin/imconfly/issues/5) Windows CI
+* [#6](https://github.com/i-erokhin/imconfly/issues/6) Config generator for *Nginx*
+* [#7](https://github.com/i-erokhin/imconfly/issues/7) denyOrigin setting (deny access to *origin* files)
+* [#8](https://github.com/i-erokhin/imconfly/issues/8) Support chat on Gitter
+* [#9](https://github.com/i-erokhin/imconfly/issues/9) Changelog
 
 License
 -------
