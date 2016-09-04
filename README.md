@@ -191,6 +191,7 @@ TODO
 ----
 
 * [Version 1.0.0](https://github.com/i-erokhin/imconfly/milestone/1)
+* [Version 1.1.0](https://github.com/i-erokhin/imconfly/milestone/2)
 
 
 License
