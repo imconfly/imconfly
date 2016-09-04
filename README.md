@@ -200,6 +200,8 @@ TODO
 * [#7](https://github.com/i-erokhin/imconfly/issues/7) denyOrigin setting (deny access to *origin* files)
 * [#8](https://github.com/i-erokhin/imconfly/issues/8) Support chat on Gitter
 * [#9](https://github.com/i-erokhin/imconfly/issues/9) Changelog
+* [#10](https://github.com/i-erokhin/imconfly/issues/10) Clean NPM installation from unnecessary files
+* [#11](https://github.com/i-erokhin/imconfly/issues/11) Project structure - app and cli folders, no JS files the root
 
 License
 -------
