@@ -6,6 +6,7 @@ MASTER
 
 * [#12](https://github.com/imconfly/imconfly/issues/12) Config file search with liftoff
 * [#10](https://github.com/imconfly/imconfly/issues/10) Clean NPM installation from unnecessary files
+* [#18](https://github.com/imconfly/imconfly/issues/18) Codecov reconfiguration
 
 v0.0.12
 -------
