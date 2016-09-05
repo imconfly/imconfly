@@ -8,6 +8,7 @@ MASTER
 * [#10](https://github.com/imconfly/imconfly/issues/10) Clean NPM installation from unnecessary files
 * [#18](https://github.com/imconfly/imconfly/issues/18) Codecov reconfiguration
 * [#8](https://github.com/imconfly/imconfly/issues/8) Support chat on Gitter
+* [#19](https://github.com/imconfly/imconfly/issues/19) Drop shelljs dependency 
 
 v0.0.12 2016-09-04
 ------------------

@@ -12,7 +12,7 @@ const path = require('path');
 const mkdirp = require('mkdirp');
 const request = require('request');
 const nodeStatic = require('node-static');
-const shell = require('shelljs');
+const exec = require('child_process').exec;
 
 function Imconfly(conf) {
   if (!(this instanceof Imconfly)) {
@@ -81,13 +81,12 @@ Imconfly.prototype.action = function (r, callback) {
       mkdirp(destDirname, err => {
         if (err) return callback(err);
         var transform = r.transform.replace('{source}', source).replace('{destination}', dest);
-        shell.exec(transform, {async: true, silent: true}, (code, stdout, stderr) => {
-          if (code) {
-            console.error('Exit code:', code);
+        exec(transform, (error, stdout, stderr) => {
+          if (error) {
+            console.error('Exit code:', error.code);
             console.error('Program output:', stdout);
             console.error('Program stderr:', stderr);
-            callback(new Error(`${code}: ${stderr}`));
-            return;
+            return callback(error);
           }
           callback();
         });
