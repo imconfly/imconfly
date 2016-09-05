@@ -197,6 +197,12 @@ TODO
 [Changelog](https://github.com/imconfly/imconfly/blob/master/CHANGELOG.md)
 --------------------------------------------------------------------------
 
+Links
+-----
+
+* [Chat on Gitter][gitter-url-nobadge]
+* [Chat on Gitter (Russian language)][gitter-url-ru] 
+
 License
 -------
 
@@ -215,3 +221,5 @@ MIT
 [npm-home-url]: https://www.npmjs.com
 [gitter-img]: https://badges.gitter.im/imconfly/imconfly.svg
 [gitter-url]: https://gitter.im/imconfly/imconfly?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+[gitter-url-nobadge]: https://gitter.im/imconfly/imconfly
+[gitter-url-ru]: https://gitter.im/imconfly/imconfly-ru
