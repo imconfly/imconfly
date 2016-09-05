@@ -202,11 +202,11 @@ License
 
 MIT
 
-[npm-image]: https://img.shields.io/npm/v/imconfly.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/imconfly.svg
 [npm-url]: https://www.npmjs.com/package/imconfly
-[travis-image]: https://img.shields.io/travis/imconfly/imconfly/master.svg?style=flat-square
+[travis-image]: https://img.shields.io/travis/imconfly/imconfly/master.svg
 [travis-url]: https://travis-ci.org/imconfly/imconfly
-[coveralls-image]: https://img.shields.io/codecov/c/github/imconfly/imconfly.svg?style=flat-square
+[coveralls-image]: https://img.shields.io/codecov/c/github/imconfly/imconfly.svg
 [coveralls-url]: https://codecov.io/github/imconfly/imconfly?branch=master
 [imagemagick-url]: http://www.imagemagick.org
 [nginx-url]: http://nginx.org
