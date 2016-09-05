@@ -1,11 +1,10 @@
 imconfly
 ========
 
-[![Join the chat at https://gitter.im/imconfly/imconfly](https://badges.gitter.im/imconfly/imconfly.svg)](https://gitter.im/imconfly/imconfly?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
+[![Chat on Gitter][gitter-img]][gitter-url]
 
 Web server for full-custom images conversion on-the-fly. Fast cache, low resources consumption.
 
@@ -214,3 +213,5 @@ MIT
 [homebrew-url]: http://brew.sh
 [nodejs-url]: https://nodejs.org/en/
 [npm-home-url]: https://www.npmjs.com
+[gitter-img]: https://badges.gitter.im/imconfly/imconfly.svg
+[gitter-url]: https://gitter.im/imconfly/imconfly?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge

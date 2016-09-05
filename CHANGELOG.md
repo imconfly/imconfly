@@ -8,8 +8,8 @@ MASTER
 * [#10](https://github.com/imconfly/imconfly/issues/10) Clean NPM installation from unnecessary files
 * [#18](https://github.com/imconfly/imconfly/issues/18) Codecov reconfiguration
 
-v0.0.12
--------
+v0.0.12 2016-09-04
+------------------
 
 * [#9](https://github.com/imconfly/imconfly/issues/9) Changelog
 * [#11](https://github.com/imconfly/imconfly/issues/11) Project structure - app and cli folders, no JS files the root 
