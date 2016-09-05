@@ -1,6 +1,8 @@
 imconfly
 ========
 
+[![Join the chat at https://gitter.im/imconfly/imconfly](https://badges.gitter.im/imconfly/imconfly.svg)](https://gitter.im/imconfly/imconfly?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
