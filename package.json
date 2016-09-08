@@ -24,12 +24,12 @@
   "engines": {
     "node": ">=4.0.0"
   },
-  "main": "app/imconfly.js",
+  "main": "app",
   "scripts": {
     "test": "mocha"
   },
   "bin": {
-    "imconfly": "cli/imconfly.js"
+    "imconfly": "cli"
   },
   "dependencies": {
     "liftoff": "^2.3.0",

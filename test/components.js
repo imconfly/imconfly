@@ -10,7 +10,7 @@ const assert = require('assert');
 const path = require('path');
 
 const conf = require('../conf/test');
-const app = require('../app/imconfly')(conf);
+const app = require('../app')(conf);
 
 function url(path, transform, container) {
   if (container === undefined) {

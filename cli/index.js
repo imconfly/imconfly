@@ -20,7 +20,7 @@ function invoke(env) {
   if(conf.storageRoot.startsWith('.')) {
     conf.storageRoot = path.resolve(env.cwd, conf.storageRoot);
   }
-  const app = require('../app/imconfly')(conf);
+  const app = require('../app')(conf);
   app.listen();
   console.log(`Storage root: ${app.conf.storageRoot}`);
   console.log(`listening on port ${app.conf.port}`);
