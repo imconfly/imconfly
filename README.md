@@ -168,25 +168,17 @@ app.listen();
 Development
 -----------
 
-For tests you need to install [Imagemagick][imagemagick-url]. On Debian/Ubuntu:
-
-```
-# apt-get install imagemagick
-```
-
-On OS X (with [Homebrew][homebrew-url]):
-
-```
-$ brew install imagemagick
-```
-
 Run tests:
 
 ```
-$ cd imconflySourcesDir
 $ npm test
 ```
 
+Run only specified test suite (``server`` for example):
+
+```
+$ npm test test/server
+```
 
 TODO
 ----

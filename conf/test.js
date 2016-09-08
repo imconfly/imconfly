@@ -9,7 +9,7 @@ module.exports = {
     nodejs: {
       root: 'https://nodejs.org/static/images/logos',
       transforms: {
-        square_200x200: 'convert "{source}" -resize 200x200 -background red -gravity center -extent 200x200 "{destination}"'
+        square_200x200: 'cp "{source}" "{destination}"'
       }
     }
   }
