@@ -3,6 +3,7 @@ imconfly
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
+[![App Veyor][appveyor-image]][appveyor-url]
 [![Test coverage][coveralls-image]][coveralls-url]
 [![Chat on Gitter][gitter-img]][gitter-url]
 
@@ -215,3 +216,5 @@ MIT
 [gitter-url]: https://gitter.im/imconfly/imconfly?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 [gitter-url-nobadge]: https://gitter.im/imconfly/imconfly
 [gitter-url-ru]: https://gitter.im/imconfly/imconfly-ru
+[appveyor-image]: https://img.shields.io/appveyor/ci/imconfly/imconfly/master.svg?label=windows%20build
+[appveyor-url]: https://ci.appveyor.com/project/imconfly/imconfly/branch/master
