@@ -1,0 +1,1 @@
+Hello from test/support/LOCAL_ORIGIN/folder1/folder2/hello.txt

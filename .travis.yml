@@ -1,10 +1,7 @@
 language: node_js
 node_js:
   - 6
-  - 5
-  - 4
 before_script:
-  - sudo apt-get install imagemagick
   - npm install -g codecov istanbul
 script:
   - istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec
