@@ -35,13 +35,21 @@ class Context {
     if (parts.length < 3) {
       throw new ContextFormatError(`Wrong request format: "${url}"`);
     }
+
     this.container = parts[1];
+    if (conf.containers[this.container] === undefined) {
+      throw new ContextBadTransformError();
+    }
+
     if (parts[2] == 'origin') {
       this.transform = null;
       this.transformPath = null;
       this.transformAction = null;
     } else {
       this.transform = parts[2];
+      if (conf.containers[this.container][this.transform] === undefined) {
+        throw new ContextBadTransformError();
+      }
     }
 
     this.relative = parts.slice(3);
@@ -60,6 +68,12 @@ class Context {
       parts[2],
       this.relative.join(path.sep)
     );
+
+    // check for a/b/../../../../c
+    const pathCheck = [conf.storageRoot, this.container, parts[2], this.relative.join(path.sep)].join(path.sep);
+    if (this.originLocalPath !== pathCheck) {
+      throw new ContextFormatError();
+    }
   }
 }
 

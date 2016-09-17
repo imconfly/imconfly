@@ -37,3 +37,45 @@ describe('Parsing "/nodejs/origin/nodejs-1024x768.png"', () => {
   it(`ctx.originRemoteURL should be "${correctOriginRemoteURL}"`,
   	() => assert.strictEqual(ctx.originRemoteURL, correctOriginRemoteURL));
 });
+
+describe('ContextBadTransformError throw', () => {
+  it('/WAT/origin/nodejs-1024x768.png', () => assert.throws(
+    () => new context.Context(testConf, '/WAT/origin/nodejs-1024x768.png'),
+    context.ContextBadTransformError
+  ));
+  it('/nodejs/WAT/nodejs-1024x768.png', () => assert.throws(
+    () => new context.Context(testConf, '/nodejs/WAT/nodejs-1024x768.png'),
+    context.ContextBadTransformError
+  ));
+});
+
+describe('ContextFormatError throw', () => {
+  it('/nodejs/origin/&', () => assert.throws(
+    () => new context.Context(testConf, '/nodejs/origin/&'),
+    context.ContextFormatError
+  ));
+  it('/nodejs/origin/..', () => assert.throws(
+    () => new context.Context(testConf, '/nodejs/origin/..'),
+    context.ContextFormatError
+  ));
+  it('/nodejs/origin/', () => assert.throws(
+    () => new context.Context(testConf, '/nodejs/origin/'),
+    context.ContextFormatError
+  ));
+  it('/nodejs/origin', () => assert.throws(
+    () => new context.Context(testConf, '/nodejs/origin'),
+    context.ContextFormatError
+  ));
+  it('/nodejs/origin//', () => assert.throws(
+    () => new context.Context(testConf, '/nodejs/origin//'),
+    context.ContextFormatError
+  ));
+  it('/nodejs/origin/"', () => assert.throws(
+    () => new context.Context(testConf, '/nodejs/origin/"'),
+    context.ContextFormatError
+  ));
+  it('/nodejs/origin/такнельзя', () => assert.throws(
+    () => new context.Context(testConf, '/nodejs/origin/такнельзя'),
+    context.ContextFormatError
+  ));
+});
