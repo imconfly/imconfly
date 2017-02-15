@@ -187,7 +187,6 @@ TODO
 * [Version 1.0.0](https://github.com/imconfly/imconfly/milestone/1)
 * [Version 1.1.0](https://github.com/imconfly/imconfly/milestone/2)
 
-[Changelog](https://github.com/imconfly/imconfly/blob/master/CHANGELOG.md)
 --------------------------------------------------------------------------
 
 Links
