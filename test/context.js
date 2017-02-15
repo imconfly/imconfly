@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
-const path = require('path');
-const assert = require('assert');
-const context = require('../app/context');
-const testConf = require('./data/conf');
+const path = require("path");
+const assert = require("assert");
+const context = require("../app/context");
+const testConf = require("./data/conf");
 
-console.dir(testConf, {depth: 5});
+// console.dir(testConf, {depth: 5});
 
 describe('Parsing "/nodejs/origin/nodejs-1024x768.png"', () => {
   const correctOriginLocalPath = path.resolve(

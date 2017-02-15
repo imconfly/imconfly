@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const path = require('path');
-const common = require('./common');
+const path = require("path");
+const common = require("./common");
 
-const DEFAULT_URL_CHECK = /^[\w\./_-]+$/;
+const DEFAULT_URL_CHECK = /^[\w./_-]+$/;
 
 /**
  * Structured info about the request, based on given conf
