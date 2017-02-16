@@ -46,6 +46,7 @@ class Imconfly {
 
       mkdirp(path.dirname(dest), err => {
         if (err) return callback(err);
+
         let transform = ctx.transformString
           .replace('{source}', source)
           .replace('{destination}', dest);
@@ -72,7 +73,8 @@ class Imconfly {
     fs.stat(ctx.originLocalPath, (err, stats) => {
       if (!err && stats.isFile()) return callback();
 
-      request.get(ctx.originRemoteUrl, {encoding: 'binary'}, (err, response, body) => {
+      //console.log(ctx);
+      request.get(ctx.originRemoteURL, {encoding: 'binary'}, (err, response, body) => {
         if (err) {
           console.error(err);
           return callback(err);
@@ -111,8 +113,7 @@ class Imconfly {
                 response.end(`HTTP 404 - Not Found. (Request to origin error: ${err.message})`);
                 return;
               }
-              let relative = ctx.transformPath.replace(this.conf.storageRoot, '');
-              this.staticServer.serveFile(relative, 200, {}, request, response);
+              this.staticServer.serveFile(request.url, 200, {}, request, response);
             });
           } else {
             response.writeHead(e.status, {'Content-Type': 'text/plain'});
