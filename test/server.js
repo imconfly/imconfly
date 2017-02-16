@@ -25,4 +25,28 @@ describe('Server tests.', function() {
       .get('/')
       .expect(404, done);
   });
+  //
+  // it(`when get ${URL_ORIGIN} (get origin) status should be 200`, done => {
+  //   request
+  //     .get(URL_ORIGIN)
+  //     .expect(200, done);
+  // });
+  //
+  // it(`when get ${URL_TRANSFORM} (make transform) status should be 200`, done => {
+  //   request
+  //     .get(URL_TRANSFORM)
+  //     .expect(200, done);
+  // });
+  //
+  // it(`when get ${URL_ORIGIN} (serve origin) status should be 200`, done => {
+  //   request
+  //     .get(URL_ORIGIN)
+  //     .expect(200, done);
+  // });
+  //
+  // it(`when get ${URL_TRANSFORM} (serve transform) status should be 200`, done => {
+  //   request
+  //     .get(URL_TRANSFORM)
+  //     .expect(200, done);
+  // });
 });
