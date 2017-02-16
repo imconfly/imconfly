@@ -100,7 +100,7 @@ Configuration
 For example:
 
 ```javascript
-// imconfly.js
+// imconfile.js
 
 module.exports = {
   storageRoot: './STORAGE',
@@ -116,7 +116,7 @@ module.exports = {
 };
 ```
 
-imconfly.json:
+``imconfile.json``:
 
 
 ```json
