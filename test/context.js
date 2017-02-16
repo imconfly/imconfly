@@ -3,9 +3,10 @@
 const path = require("path");
 const assert = require("assert");
 const context = require("../app/context");
-const testConf = require("./data/conf");
+const conf = require("../app/conf");
+const common = require("./common");
 
-// console.dir(testConf, {depth: 5});
+const testConf = conf.Conf.fromFile(common.TEST_CONF_FILE);
 
 describe('Parsing "/nodejs/origin/nodejs-1024x768.png"', () => {
   const correctOriginLocalPath = path.resolve(
@@ -38,7 +39,7 @@ describe('Parsing "/nodejs/origin/nodejs-1024x768.png"', () => {
   	() => assert.strictEqual(ctx.originRemoteURL, correctOriginRemoteURL));
 });
 
-describe('ContextBadTransformError throw', () => {
+describe('ContextBadTransformError throws when', () => {
   it('/WAT/origin/nodejs-1024x768.png', () => assert.throws(
     () => new context.Context(testConf, '/WAT/origin/nodejs-1024x768.png'),
     context.ContextBadTransformError
@@ -49,7 +50,7 @@ describe('ContextBadTransformError throw', () => {
   ));
 });
 
-describe('ContextFormatError throw', () => {
+describe('ContextFormatError throws when', () => {
   it('/nodejs/origin/&', () => assert.throws(
     () => new context.Context(testConf, '/nodejs/origin/&'),
     context.ContextFormatError

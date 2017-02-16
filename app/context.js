@@ -3,32 +3,29 @@
 const path = require("path");
 const common = require("./common");
 
-const DEFAULT_URL_CHECK = /^[\w./_-]+$/;
-
 /**
  * Structured info about the request, based on given conf
  *
  * @property {string} container
- * @property {sgring|null} transform null if "origin" is the second part of the given URL
- * @property {string|null} transformPath path to local file, or null if 'transform' property is null
- * @property {array} relative ['a', 'b', 'c'] if relative part of the given URL is 'a/b/c'
- * @property {boolean} originIsLocal true if origin is local, overwise false
- * @property {string} originLocalPath path to local origin file
- * @property {string|null} originRemoteUrl URL to origin file, or null if 'originIsLocal' property is true
+ * @property {string|null} transform         null if "origin" is the second part of the given URL
+ * @property {string|null} transformPath     path to local file, or null if 'transform' property is null
+ * @property {array} relative                ['a', 'b', 'c'] if relative part of the given URL is 'a/b/c'
+ * @property {boolean} originIsLocal         true if origin is local, overwise false
+ * @property {string} originLocalPath        path to local origin file
+ * @property {string|null} originRemoteUrl   URL to origin file, or null if 'originIsLocal' property is true
  */
 class Context {
   /**
-   * @param  {object} conf
-   * @param  {string} url
+   * @param  {conf.Conf}     conf
+   * @param  {string}        url
    * @throws {ContextError}
    */
   constructor(conf, url) {
   	this.conf = conf;
   	this.url = url;
 
-    const checker = conf.urlChecker || DEFAULT_URL_CHECK;
-    if (!checker.test(url)) {
-      throw new ContextFormatError(`Requested URL "${url}" don't match "${checker}"`);
+    if (!conf.urlChecker.test(url)) {
+      throw new ContextFormatError(`Requested URL "${url}" don't match "${conf.urlChecker}"`);
     }
 
     const parts = url.split('/');
