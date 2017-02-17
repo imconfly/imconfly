@@ -1,0 +1,8 @@
+{
+  "urlChecker": "/^[\\w./_-]+$/",
+  "containers": {
+    "test": {
+      "root": "https://nodejs.org/static/images/logos"
+    }
+  }
+}

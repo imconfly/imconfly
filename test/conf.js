@@ -20,8 +20,12 @@ describe("ConfError throws when", () => {
     () => new conf.Conf(0, VALID_WD),
     conf.ConfError
   ));
-  it('workdir is not a directory', () => assert.throws(
-    () => new conf.Conf(VALID_CONF, "zzz"),
+  it('workdir is not exist', () => assert.throws(
+    () => new conf.Conf(VALID_CONF, "zXzXz"),
+    conf.ConfError
+  ));
+  it('workdir is a file', () => assert.throws(
+    () => new conf.Conf(VALID_CONF, path.resolve(__dirname, "conf.js")),
     conf.ConfError
   ));
   it(`"storageRoot" param is not a string`, () => assert.throws(
@@ -72,9 +76,19 @@ describe("ConfError throws when", () => {
       conf.ConfError
     )
   });
+  it(`param "urlChecker" is not an object or string`, () => {
+    let c = Object.assign({urlChecker: 0}, VALID_CONF);
+    assert.throws(
+      () => new conf.Conf(c, VALID_WD),
+      conf.ConfError
+    )
+  });
 });
 
 describe(`When parse ${common.TEST_CONF_FILE}`, () => {
-  let testConf = new conf.Conf(common.CONF, __dirname);
-  // console.dir(testConf, {depth: 10});
+  let cf = conf.Conf.fromFile(common.TEST_CONF_FILE);
+  //console.dir(cf, {depth: 10});
+  it(`"urlChecker" should be an object`, () => {
+    assert.strictEqual(typeof cf.urlChecker, "object")
+  });
 });

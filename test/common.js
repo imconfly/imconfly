@@ -2,7 +2,7 @@
 
 const path = require("path");
 
-exports.TEST_CONF_FILE = path.resolve(__dirname, "data", "conf.js");
+exports.TEST_CONF_FILE = path.resolve(__dirname, "data", "conf_test_from_file.json");
 
 // conf parts
 exports.CONF_STORAGE_ROOT = path.resolve(__dirname, "TEST_STORAGE");

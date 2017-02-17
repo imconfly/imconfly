@@ -67,7 +67,14 @@ class Conf {
     if (obj.urlChecker === undefined) {
       this.urlChecker = DEFAULT_URL_CHECK;
     } else {
-      this.urlChecker = obj.urlChecker;
+      if (typeof obj.urlChecker === "object") {
+        this.urlChecker = obj.urlChecker;
+      } else if (typeof obj.urlChecker === "string") {
+        let match = obj.urlChecker.match(new RegExp('^/(.*?)/([gimy]*)$'));
+        this.urlChecker = new RegExp(match[1], match[2]);
+      } else {
+        throw new ConfError('"urlChecker" param is not a regexp or string');
+      }
     }
 
     // this.containers
