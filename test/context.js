@@ -71,6 +71,10 @@ describe('ContextFormatError throws when URI is', () => {
     () => new context.Context(testConf, '/nodejs/origin/../nodejs-1024x768.png'),
     context.ContextFormatError
   ));
+  it('/local/origin/../nodejs-1024x768.png', () => assert.throws(
+    () => new context.Context(testConf, '/nodejs/origin/../nodejs-1024x768.png'),
+    context.ContextFormatError
+  ));
   it('/nodejs/origin/./nodejs-1024x768.png', () => assert.throws(
     () => new context.Context(testConf, '/nodejs/origin/./nodejs-1024x768.png'),
     context.ContextFormatError

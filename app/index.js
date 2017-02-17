@@ -47,7 +47,7 @@ class Imconfly {
       mkdirp(path.dirname(dest), err => {
         if (err) return callback(err);
 
-        let transform = ctx.transformString
+        let transform = ctx.transformAction
           .replace('{source}', source)
           .replace('{destination}', dest);
 
