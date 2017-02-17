@@ -29,7 +29,7 @@
     "test": "mocha"
   },
   "bin": {
-    "imconfly": "cli"
+    "imconfly": "./bin/cli.js"
   },
   "files": [
     "app",
