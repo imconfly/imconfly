@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 "use strict";
 
-const path = require("path");
 const Liftoff = require("liftoff");
 const Imconfly = require("../app");
 const conf = require("../app/conf");
@@ -16,9 +15,12 @@ const MyApp = new Liftoff({
 });
 
 function invoke(env) {
-  const imconfile = env.configPath;
-  console.log(`Configuration module: ${imconfile}`);
-  const c = conf.Conf.fromFile(imconfile);
+  if (!env.configPath) {
+    console.error("No configuration file found.");
+    exit(2);
+  }
+  console.log(`Configuration module: ${env.configPath}`);
+  const c = conf.Conf.fromFile(env.configPath);
   const app = new Imconfly(c);
   app.listen();
   console.log(`Storage root: ${app.conf.storageRoot}`);
