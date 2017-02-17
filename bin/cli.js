@@ -17,7 +17,7 @@ const MyApp = new Liftoff({
 function invoke(env) {
   if (!env.configPath) {
     console.error("No configuration file found.");
-    exit(2);
+    process.exit(2);
   }
   console.log(`Configuration module: ${env.configPath}`);
   const c = conf.Conf.fromFile(env.configPath);
