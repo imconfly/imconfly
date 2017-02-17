@@ -33,7 +33,7 @@
   },
   "files": [
     "app",
-    "cli"
+    "bin"
   ],
   "dependencies": {
     "liftoff": "^2.3.0",
