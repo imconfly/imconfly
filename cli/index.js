@@ -1,9 +1,11 @@
 #!/usr/bin/env node
-'use strict';
+"use strict";
 
-const path = require('path');
+const path = require("path");
+const Liftoff = require("liftoff");
+const Imconfly = require("../app");
+const conf = require("../app/conf");
 
-const Liftoff = require('liftoff');
 const MyApp = new Liftoff({
   name: 'imconfly',
   configName: 'imconfile',
@@ -16,11 +18,8 @@ const MyApp = new Liftoff({
 function invoke(env) {
   const imconfile = env.configPath;
   console.log(`Configuration module: ${imconfile}`);
-  const conf = require(imconfile);
-  if(conf.storageRoot.startsWith('.')) {
-    conf.storageRoot = path.resolve(env.cwd, conf.storageRoot);
-  }
-  const app = require('../app')(conf);
+  const c = conf.Conf.fromFile(imconfile);
+  const app = new Imconfly(c);
   app.listen();
   console.log(`Storage root: ${app.conf.storageRoot}`);
   console.log(`listening on port ${app.conf.port}`);

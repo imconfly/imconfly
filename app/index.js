@@ -15,13 +15,13 @@ const context = require("./context");
 
 /**
  *
- * @property {conf.Conf}          conf
+ * @property {Conf}          conf
  * @property {nodeStatic.Server}  staticServer
  */
 class Imconfly {
   /**
    *
-   * @param {conf.Conf} conf
+   * @param {Conf} conf
    */
   constructor(conf) {
     this.conf = conf;
