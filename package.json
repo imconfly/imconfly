@@ -22,7 +22,7 @@
     "imagemagick"
   ],
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=5.0.0"
   },
   "main": "app",
   "scripts": {
