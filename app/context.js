@@ -30,7 +30,7 @@ class Context {
     }
 
     const parts = url.split('/');
-    if (parts.length < 3) {
+    if (parts.length < 4) {
       throw new ContextFormatError(`Wrong request format: "${url}"`);
     }
 

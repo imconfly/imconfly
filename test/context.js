@@ -1,50 +1,36 @@
 "use strict";
 
-const path = require("path");
 const assert = require("assert");
 const context = require("../app/context");
 const conf = require("../app/conf");
-const common = require("./common");
+const c = require("./common");
 
-const testConf = conf.Conf.fromFile(common.TEST_CONF_FILE);
+const testConf = new conf.Conf(c.CONF, __dirname);
 
-describe(`Parsing "${common.URL_ORIGIN}"`, () => {
-  const op = path.resolve(
-  	testConf.storageRoot,
-  	'nodejs',
-  	'origin',
-  	'nodejs-1024x768.png'
-  );
-  const ou = `${testConf.containers.nodejs.root}/nodejs-1024x768.png`;
-  const ctx = new context.Context(testConf, common.URL_ORIGIN);
-  it('ctx.container should be "nodejs"', () => assert.strictEqual(ctx.container, 'nodejs'));
+describe(`Parsing "${c.URL_ORIGIN_REMOTE}"`, () => {
+  const ctx = new context.Context(testConf, c.URL_ORIGIN_REMOTE);
+  it(`ctx.container should be "${c.CONF_CONTAINER_REMOTE}"`, () => assert.strictEqual(ctx.container, c.CONF_CONTAINER_REMOTE));
   it('ctx.transform should be null', () => assert.strictEqual(ctx.transform, null));
   it('ctx.transformPath should be null', () => assert.strictEqual(ctx.transformPath, null));
   it('ctx.transformAction should be null', () => assert.strictEqual(ctx.transformAction, null));
-  it(`ctx.relative should be ['nodejs-1024x768.png']`, () => assert.deepEqual(ctx.relative, ['nodejs-1024x768.png']));
+  it(`ctx.relative should be ['${c.RELATIVE_REMOTE}']`, () => assert.deepEqual(ctx.relative, [c.RELATIVE_REMOTE]));
   it('ctx.originIsLocal should be false', () => assert.strictEqual(ctx.originIsLocal, false));
-  it(`ctx.originLocalPath should be "${op}"`, () => assert.strictEqual(ctx.originLocalPath, op));
-  it(`ctx.originRemoteURL should be "${ou}"`, () => assert.strictEqual(ctx.originRemoteURL, ou));
+  it(`ctx.originLocalPath should be "${c.CALCULATED_ORIGIN_PATH_REMOTE}"`, () => assert.strictEqual(ctx.originLocalPath, c.CALCULATED_ORIGIN_PATH_REMOTE));
+  it(`ctx.originRemoteURL should be "${c.CALCULATED_ORIGIN_URL_REMOTE}"`, () => assert.strictEqual(ctx.originRemoteURL, c.CALCULATED_ORIGIN_URL_REMOTE));
 });
 
-describe(`Parsing "${common.URL_TRANSFORM}"`, () => {
-  const op = path.resolve(
-    testConf.storageRoot,
-    'nodejs',
-    'dummy',
-    'nodejs-1024x768.png'
-  );
-  const ou = `${testConf.containers.nodejs.root}/nodejs-1024x768.png`;
-  const ctx = new context.Context(testConf, common.URL_TRANSFORM);
-  it('ctx.container should be "nodejs"', () => assert.strictEqual(ctx.container, 'nodejs'));
-  it('ctx.transform should be "dummy"', () => assert.strictEqual(ctx.transform, "dummy"));
+describe(`Parsing "${c.URL_TRANSFORM_REMOTE}"`, () => {
+  const ctx = new context.Context(testConf, c.URL_TRANSFORM_REMOTE);
+  it(`ctx.container should be "${c.CONF_CONTAINER_REMOTE}"`, () => assert.strictEqual(ctx.container, c.CONF_CONTAINER_REMOTE));
+  it(`ctx.transform should be "${c.CONF_TRANSFORM_NAME}"`, () => assert.strictEqual(ctx.transform, c.CONF_TRANSFORM_NAME));
   // it('ctx.transformPath should be null', () => assert.strictEqual(ctx.transformPath, null));
   // it('ctx.transformAction should be null', () => assert.strictEqual(ctx.transformAction, null));
-  // it(`ctx.relative should be ['nodejs-1024x768.png']`, () => assert.deepEqual(ctx.relative, ['nodejs-1024x768.png']));
+  // it(`ctx.relative should be ['${c.RELATIVE_REMOTE}']`, () => assert.deepEqual(ctx.relative, [c.RELATIVE_REMOTE]));
   // it('ctx.originIsLocal should be false', () => assert.strictEqual(ctx.originIsLocal, false));
-  // it(`ctx.originLocalPath should be "${op}"`, () => assert.strictEqual(ctx.originLocalPath, op));
-  // it(`ctx.originRemoteURL should be "${ou}"`, () => assert.strictEqual(ctx.originRemoteURL, ou));
+  // it(`ctx.originLocalPath should be "${c.CALCULATED_ORIGIN_PATH_REMOTE}"`, () => assert.strictEqual(ctx.originLocalPath, c.CALCULATED_ORIGIN_PATH_REMOTE));
+  // it(`ctx.originRemoteURL should be "${c.CALCULATED_ORIGIN_URL_REMOTE}"`, () => assert.strictEqual(ctx.originRemoteURL, c.CALCULATED_ORIGIN_URL_REMOTE));
 });
+
 
 describe('ContextBadTransformError throws when', () => {
   it('/WAT/origin/nodejs-1024x768.png (bad container)', () => assert.throws(
@@ -57,7 +43,40 @@ describe('ContextBadTransformError throws when', () => {
   ));
 });
 
+
 describe('ContextFormatError throws when', () => {
+  it("/", () => assert.throws(
+    () => new context.Context(testConf, "/"),
+    context.ContextFormatError
+  ));
+  it("/nodejs", () => assert.throws(
+    () => new context.Context(testConf, "/nodejs"),
+    context.ContextFormatError
+  ));
+  it("/nodejs/", () => assert.throws(
+    () => new context.Context(testConf, "/nodejs/"),
+    context.ContextFormatError
+  ));
+  it('/nodejs/origin', () => assert.throws(
+    () => new context.Context(testConf, '/nodejs/origin'),
+    context.ContextFormatError
+  ));
+  it('/nodejs/origin/', () => assert.throws(
+    () => new context.Context(testConf, '/nodejs/origin/'),
+    context.ContextFormatError
+  ));
+  it('/nodejs/origin/../nodejs-1024x768.png', () => assert.throws(
+    () => new context.Context(testConf, '/nodejs/origin/../nodejs-1024x768.png'),
+    context.ContextFormatError
+  ));
+  it('/nodejs/origin/./nodejs-1024x768.png', () => assert.throws(
+    () => new context.Context(testConf, '/nodejs/origin/./nodejs-1024x768.png'),
+    context.ContextFormatError
+  ));
+  it('/nodejs/origin/"', () => assert.throws(
+    () => new context.Context(testConf, '/nodejs/origin/"'),
+    context.ContextFormatError
+  ));
   it('/nodejs/origin/&', () => assert.throws(
     () => new context.Context(testConf, '/nodejs/origin/&'),
     context.ContextFormatError
@@ -66,20 +85,8 @@ describe('ContextFormatError throws when', () => {
     () => new context.Context(testConf, '/nodejs/origin/..'),
     context.ContextFormatError
   ));
-  it('/nodejs/origin/', () => assert.throws(
-    () => new context.Context(testConf, '/nodejs/origin/'),
-    context.ContextFormatError
-  ));
-  it('/nodejs/origin', () => assert.throws(
-    () => new context.Context(testConf, '/nodejs/origin'),
-    context.ContextFormatError
-  ));
   it('/nodejs/origin//', () => assert.throws(
     () => new context.Context(testConf, '/nodejs/origin//'),
-    context.ContextFormatError
-  ));
-  it('/nodejs/origin/"', () => assert.throws(
-    () => new context.Context(testConf, '/nodejs/origin/"'),
     context.ContextFormatError
   ));
   it('/nodejs/origin/такнельзя', () => assert.throws(

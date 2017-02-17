@@ -10,8 +10,7 @@ const URL_TRANSFORM = "/nodejs/dummy/nodejs-1024x768.png";
 const URL_ORIGIN = "/nodejs/origin/nodejs-1024x768.png";
 const TEST_TIMEOUT = 15000;
 
-const testConf = conf.Conf.fromFile(common.TEST_CONF_FILE);
-
+const testConf = new conf.Conf(common.CONF, __dirname);
 const app = new Imconfly(testConf);
 const request = supertest.agent(app.listen());
 

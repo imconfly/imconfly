@@ -75,6 +75,6 @@ describe("ConfError throws when", () => {
 });
 
 describe(`When parse ${common.TEST_CONF_FILE}`, () => {
-  let testConf = conf.Conf.fromFile(common.TEST_CONF_FILE);
+  let testConf = new conf.Conf(common.CONF, __dirname);
   // console.dir(testConf, {depth: 10});
 });
