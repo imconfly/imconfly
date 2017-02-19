@@ -12,7 +12,6 @@ const request = require("request");
 const nodeStatic = require("node-static");
 const context = require("./context");
 
-
 /**
  *
  * @property {Conf}          conf
@@ -125,4 +124,7 @@ class Imconfly {
   }
 }
 
-module.exports = Imconfly;
+exports.Imconfly = Imconfly;
+exports.context = context;
+exports.conf = require("./conf");
+exports.ImconflyError = require("./common").ImconflyError;

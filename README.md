@@ -160,8 +160,12 @@ API
 You can use Imconfly inside your apps. For example:
 
 ```javascript
-var conf = require('./imconfile');
-var app = require('imconfly')(conf);
+const imconfly = require('imconfly');
+const imcfConf = imconfly.conf.Conf.fromFile('imconfile.json');
+// or
+// const imcfRawConf = require('./imconfile.json'); 
+// const imcfConf = new imconly.conf.Conf(imcfRawConf, __dirname); 
+const app = new imconlfy.Imconfly(imcfConf);
 
 app.listen();
 ```
@@ -185,7 +189,6 @@ TODO
 ----
 
 * [Version 1.0.0](https://github.com/imconfly/imconfly/milestone/1)
-* [Version 1.1.0](https://github.com/imconfly/imconfly/milestone/2)
 
 --------------------------------------------------------------------------
 
