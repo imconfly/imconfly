@@ -2,14 +2,13 @@
 
 const rimraf = require("rimraf");
 const supertest = require('supertest');
-const conf = require("../app/conf");
-const Imconfly = require("../app");
+const imconfly = require("../app");
 const c = require("./common");
 
 const TEST_TIMEOUT = 15000;
 
-const testConf = new conf.Conf(c.CONF, __dirname);
-const app = new Imconfly(testConf);
+const testConf = new imconfly.conf.Conf(c.CONF, __dirname);
+const app = new imconfly.Imconfly(testConf);
 const request = supertest.agent(app.listen());
 
 describe('Server tests.', function() {

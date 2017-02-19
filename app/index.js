@@ -14,7 +14,7 @@ const context = require("./context");
 
 /**
  *
- * @property {Conf}          conf
+ * @property {Conf}               conf
  * @property {nodeStatic.Server}  staticServer
  */
 class Imconfly {
@@ -30,7 +30,7 @@ class Imconfly {
   /**
    *
    * @param {context.Context} ctx
-   * @param {function} callback
+   * @param {function}        callback
    */
   action(ctx, callback) {
     if (ctx.transform === null) {
@@ -66,7 +66,7 @@ class Imconfly {
   /**
    *
    * @param {context.Context} ctx
-   * @param {function} callback
+   * @param {function}        callback
    */
   getOrigin(ctx, callback) {
     fs.stat(ctx.originLocalPath, (err, stats) => {
