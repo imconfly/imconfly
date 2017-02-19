@@ -163,7 +163,7 @@ You can use Imconfly inside your apps. For example:
 const imconfly = require('imconfly');
 const imcfConf = imconfly.conf.Conf.fromFile('imconfile.json');
 // or
-// const imcfRawConf = require('./imconfile.json'); 
+// const imcfRawConf = require('./imconfile'); 
 // const imcfConf = new imconly.conf.Conf(imcfRawConf, __dirname); 
 const app = new imconlfy.Imconfly(imcfConf);
 
@@ -195,13 +195,14 @@ TODO
 Links
 -----
 
-* [Chat on Gitter][gitter-url-nobadge]
+* [Chat on Gitter][gitter-url]
 * [Chat on Gitter (Russian language)][gitter-url-ru] 
 
 License
 -------
 
 MIT
+
 
 [npm-image]: https://img.shields.io/npm/v/imconfly.svg
 [npm-url]: https://www.npmjs.com/package/imconfly
@@ -211,12 +212,10 @@ MIT
 [coveralls-url]: https://codecov.io/github/imconfly/imconfly?branch=master
 [imagemagick-url]: http://www.imagemagick.org
 [nginx-url]: http://nginx.org
-[homebrew-url]: http://brew.sh
 [nodejs-url]: https://nodejs.org/en/
 [npm-home-url]: https://www.npmjs.com
 [gitter-img]: https://badges.gitter.im/imconfly/imconfly.svg
-[gitter-url]: https://gitter.im/imconfly/imconfly?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
-[gitter-url-nobadge]: https://gitter.im/imconfly/imconfly
+[gitter-url]: https://gitter.im/imconfly/imconfly
 [gitter-url-ru]: https://gitter.im/imconfly/imconfly-ru
 [appveyor-image]: https://img.shields.io/appveyor/ci/i-erokhin/imconfly/master.svg?label=windows%20build
 [appveyor-url]: https://ci.appveyor.com/project/i-erokhin/imconfly/branch/master
