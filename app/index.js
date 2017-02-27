@@ -24,7 +24,7 @@ class Imconfly {
    */
   constructor(conf) {
     this.conf = conf;
-    this.staticServer = new nodeStatic.Server(conf.storageRoot);
+    this.staticServer = new nodeStatic.Server(conf.storageRoot, {cache: conf.maxage});
   }
 
   /**

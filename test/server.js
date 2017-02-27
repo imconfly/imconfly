@@ -25,24 +25,28 @@ describe('Server tests.', function() {
   it(`when get ${c.URL_ORIGIN_REMOTE} (get origin) status should be 200`, done => {
     request
       .get(c.URL_ORIGIN_REMOTE)
+      .expect('Cache-Control', `max-age=${imconfly.conf.DEFAULT_MAXAGE}`)
       .expect(200, done);
   });
 
   it(`when get ${c.URL_TRANSFORM_REMOTE} (make transform) status should be 200`, done => {
     request
       .get(c.URL_TRANSFORM_REMOTE)
+      .expect('Cache-Control', `max-age=${imconfly.conf.DEFAULT_MAXAGE}`)
       .expect(200, done);
   });
 
   it(`when get ${c.URL_ORIGIN_REMOTE} (serve origin) status should be 200`, done => {
     request
       .get(c.URL_ORIGIN_REMOTE)
+      .expect('Cache-Control', `max-age=${imconfly.conf.DEFAULT_MAXAGE}`)
       .expect(200, done);
   });
 
   it(`when get ${c.URL_TRANSFORM_REMOTE} (serve transform) status should be 200`, done => {
     request
       .get(c.URL_TRANSFORM_REMOTE)
+      .expect('Cache-Control', `max-age=${imconfly.conf.DEFAULT_MAXAGE}`)
       .expect(200, done);
   });
 });
