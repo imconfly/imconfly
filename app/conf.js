@@ -1,8 +1,10 @@
 "use strict";
 
-const DEFAULT_STORAGE_DIRNAME = "imconfly_storage";
-const DEFAULT_PORT = 9989;
-const DEFAULT_URL_CHECK = /^[\w./_-]+$/;
+const DEFAULT_STORAGE_DIRNAME = exports.DEFAULT_STORAGE_DIRNAME = "imconfly_storage";
+const DEFAULT_PORT = exports.DEFAULT_PORT = 9989;
+const DEFAULT_URL_CHECK = exports.DEFAULT_URL_CHECK = /^[\w./_-]+$/;
+const DAY_SECONDS = 86400;
+const DEFAULT_MAXAGE = exports.DEFAULT_MAXAGE = DAY_SECONDS * 31;
 
 const fs = require("fs");
 const path = require("path");
@@ -34,6 +36,7 @@ class Conf {
     this.port = this._port(obj);
     this.urlChecker = this._urlChecker(obj);
     this.containers = this._containers(obj);
+    this.maxage = this._maxage(obj);
   }
 
   /**
@@ -47,6 +50,17 @@ class Conf {
     let dirname = path.dirname(filePath);
     let obj = require(filePath);
     return new Conf(obj, dirname);
+  }
+
+  _maxage(obj) {
+    if (obj.maxage === undefined) {
+      return DEFAULT_MAXAGE
+    }
+    if (typeof obj.maxage !== "number") {
+      throw new ConfError(`"maxage" param is not a number`);
+    }
+
+    return obj.maxage;
   }
 
   _workDir(workDir) {

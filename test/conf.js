@@ -40,6 +40,10 @@ describe("ConfError throws when", () => {
     () => new conf.Conf(Object.assign({port: "8888"}, VALID_CONF), VALID_WD),
     conf.ConfError
   ));
+  it(`"maxage" param is not a number`, () => assert.throws(
+    () => new conf.Conf(Object.assign({maxage: "86400"}, VALID_CONF), VALID_WD),
+    conf.ConfError
+  ));
   it(`"containers" param missed`, () => assert.throws(
     () => new conf.Conf({}, VALID_WD),
     conf.ConfError
@@ -90,5 +94,8 @@ describe(`When parse ${common.TEST_CONF_FILE}`, () => {
   //console.dir(cf, {depth: 10});
   it(`"urlChecker" should be an object`, () => {
     assert.strictEqual(typeof cf.urlChecker, "object")
+  });
+  it(`"maxage" should be ${conf.DEFAULT_MAXAGE}`, () => {
+    assert.strictEqual(cf.maxage, conf.DEFAULT_MAXAGE)
   });
 });
