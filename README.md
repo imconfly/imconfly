@@ -9,8 +9,6 @@ imconfly
 
 Web server for full-custom images conversion on-the-fly. Fast cache, low resources consumption.
 
-Written in JavaScript, powered by [Node.js][nodejs-url] and available as [NPM][npm-home-url] package.
-
 Imconfly uses CLI applications like [Imagemagick][imagemagick-url] with full-custom set of
 parameters for images conversion. This is extremely flexible approach, you can create any transformation you
 need, using any CLI tool or bunch of CLI tools.
@@ -24,18 +22,14 @@ Quick example
 You have an image, <https://nodejs.org/static/images/logos/nodejs-1280x1024.png> for example. You want to transfom 
 it to 100x100 pixels on red canvas and use on your site permanently.
 
-After configuring Imconfly server, your transformed image will be immediately available by URL like this:
+After configuring and run Imconfly server, your transformed image will be immediately available by URL like this:
 
-```
-http://yoursite.com:9988/nodejs/100x100-red/logos/nodejs-1280x1024.png
-```
+<http://localhost:9989/nodejs/100x100-red/logos/nodejs-1280x1024.png>
 
 Corresponding configuration:
  
 ```json
 {
-  "storageRoot": "/var/www/imconfly",
-  "port": 9988,
   "containers": {
     "nodejs": {
       "root": "https://nodejs.org/static/images",
@@ -47,29 +41,25 @@ Corresponding configuration:
 }
 ```
 
-Original image will be stored in
+* *this example uses ``convert`` command from [Imagemagick][imagemagick-url] toolkit*
+* *``root`` settings can be local directory path like ``/var/www/my_imgs``*
 
-```
-/var/www/imconfly/nodejs/origin/logos/nodejs-1280x1024.png
-```
+For example, configuration file is ``/home/mike/imcf-example/imconfile.json``, in this case:
 
-Transformed image can be found in 
-
-```
-/var/www/imconfly/nodejs/100x100-red/logos/nodejs-1280x1024.png
-```
+* Original image will be stored in ``/home/mike/imcf-example/imconfly_storage/nodejs/origin/logos/nodejs-1280x1024.png``
+* Transformed image will be stored in ``/home/mike/imcf-example/imconfly_storage/nodejs/100x100-red/logos/nodejs-1280x1024.png``
 
 This is result of:
 
- * `/var/www/imconfly` (storageRoot setting) + 
- * `nodejs` (container name) + 
- * `100x100-red` (transformation name) + 
- * `logos/nodejs-1280x1024.png` (relative path) 
+ * `/home/mike/imcf-example/imconfly_storage` - *storageRoot* setting by default - path to *imconfile* + "imconfly_storage" + 
+ * `nodejs` - *container* name + 
+ * `100x100-red` - *transformation* name + 
+ * `logos/nodejs-1280x1024.png` - *relative path* 
 
 Command that be called to create the small copy (`100x100-red` transfomation):
 
 ```
-convert "/var/www/imconfly/nodejs/origin/logos/nodejs-1280x1024.png" -resize 100x100 -background red -gravity center -extent 100x100 "/var/www/imconfly/nodejs/100x100-red/logos/nodejs-1280x1024.png"
+convert "/home/mike/imcf-example/imconfly_storage/nodejs/origin/logos/nodejs-1280x1024.png" -resize 100x100 -background red -gravity center -extent 100x100 "/home/mike/imcf-example/imconfly_storage/nodejs/100x100-red/logos/nodejs-1280x1024.png"
 ```
 
 This is an expencive operation, and it performs once, on first-time request. 
@@ -95,7 +85,8 @@ Configuration
 
 ### imconfile
 
-``imconfly`` command needs to configuration file in the current directory or in a some parent directory - ``imconfile.js`` or ``imconfile.json``. 
+``imconfly`` command needs to configuration file in the current directory or in a some parent directory - 
+``imconfile.js`` or ``imconfile.json``. 
 
 For example:
 
@@ -103,13 +94,11 @@ For example:
 // imconfile.js
 
 module.exports = {
-  storageRoot: './STORAGE',
-  port: 9988,
   containers: {
     nodejs: {
-      root: 'https://nodejs.org/static/images/logos',
+      root: "https://nodejs.org/static/images",
       transforms: {
-        square_200x200: 'convert "{source}" -resize 200x200 -background red -gravity center -extent 200x200 "{destination}"'
+        "100x100-red": "convert \"{source}\" -resize 100x100 -background red -gravity center -extent 100x100 \"{destination}\""
       }
     }
   }
@@ -121,13 +110,11 @@ module.exports = {
 
 ```json
 {
-  "storageRoot": "./STORAGE",
-  "port": 9988,
   "containers": {
     "nodejs": {
-      "root": "https://nodejs.org/static/images/logos",
+      "root": "https://nodejs.org/static/images",
       "transforms": {
-        "square_200x200": "convert \"{source}\" -resize 200x200 -background red -gravity center -extent 200x200 \"{destination}\""
+        "100x100-red": "convert \"{source}\" -resize 100x100 -background red -gravity center -extent 100x100 \"{destination}\""
       }
     }
   }
@@ -136,16 +123,22 @@ module.exports = {
 
 You can copy this to correspond file, run ``imconfly`` and check it by this URL:
 
-```
-http://127.0.0.1:9988/nodejs/square_200x200/nodejs-1280x1024.png
-```
+<http://localhost:9989/nodejs/100x100-red/logos/nodejs-1280x1024.png>
+
+### Relative paths
+
+Relative paths in configuration will be resolved from directory of *imconfile*.
+    
+If your *imconfile* is ``/home/mike/imcf-example/imconfile.json``, "./imcf_storage" will be resolved as
+``/home/mike/imcf-example/imcf_storage``
 
 ### Global options
 
-* ```storageRoot``` - path to directory with transformed images and origins
-* ```port``` - port to listen by Imconfly application (HTTP protocol)
-* ```urlChecker``` - regexp to check URL format on each request to Imconfly app (```/^[\w\./_-]+$/``` by default)
-* ```containers``` - dictonary of containers names. Names must correspond to ```urlChecker``` format.
+* ``storageRoot`` - path to directory with transformed images and origins. Defalut is ``./imconfly_storage``.
+* ``port`` - port to listen by Imconfly application (HTTP protocol). ``9989`` by default.
+* ``urlChecker`` - regexp to check URL format on each request to Imconfly app (``/^[\w\./_-]+$/`` by default)
+* ``maxage`` - amount of seconds for ``Cache-Control: max-age=`` http header. Default is ``2678400`` (31 day).
+* ``containers`` - dictonary of containers names. Names must correspond to ``urlChecker`` format.
 
 ### Container options
 
@@ -212,7 +205,6 @@ MIT
 [coveralls-url]: https://codecov.io/github/imconfly/imconfly?branch=master
 [imagemagick-url]: http://www.imagemagick.org
 [nginx-url]: http://nginx.org
-[nodejs-url]: https://nodejs.org/en/
 [npm-home-url]: https://www.npmjs.com
 [gitter-img]: https://badges.gitter.im/imconfly/imconfly.svg
 [gitter-url]: https://gitter.im/imconfly/imconfly
