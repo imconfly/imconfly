@@ -1,12 +1,9 @@
 logs/*
 *.log
 conf/index.js
-!.gitkeep
 node_modules/
 dev-static/
 tmp
-.DS_Store
-.idea
 STORAGE
 TEST_STORAGE
 imconfile.js
