@@ -2,7 +2,7 @@
   "urlChecker": "/^[\\w./_-]+$/",
   "containers": {
     "test": {
-      "root": "https://nodejs.org/static/images/logos"
+      "root": "https://upload.wikimedia.org/wikipedia/commons"
     }
   }
 }

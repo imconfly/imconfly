@@ -1,5 +1,8 @@
 "use strict";
 
+// new: https://nodejs.org/static/images/logo.svg
+
+
 const path = require("path");
 
 exports.TEST_CONF_FILE = path.resolve(__dirname, "data", "conf_test_from_file.json");
@@ -7,9 +10,9 @@ exports.TEST_CONF_FILE = path.resolve(__dirname, "data", "conf_test_from_file.js
 // conf parts
 exports.CONF_STORAGE_ROOT = path.resolve(__dirname, "TEST_STORAGE");
 exports.CONF_PORT = 9989;
-exports.CONF_CONTAINER_REMOTE = "nodejs";
+exports.CONF_CONTAINER_REMOTE = "wikimedia";
 exports.CONF_CONTAINER_LOCAL = "local";
-exports.CONF_ORIGIN_REMOTE = "https://nodejs.org/static/images/logos";
+exports.CONF_ORIGIN_REMOTE = "https://upload.wikimedia.org/wikipedia/commons/4/41";
 exports.CONF_ORIGIN_LOCAL = path.join(__dirname, "data", "LOCAL_ORIGIN");
 exports.CONF_TRANSFORM_NAME = "dummy";
 exports.CONF_TRANSFORM_ACTION = `cp "{source}" "{destination}"`;
@@ -20,7 +23,7 @@ exports.CONF = {
   storageRoot: exports.CONF_STORAGE_ROOT,
   port: exports.CONF_PORT,
   containers: {
-    nodejs: {
+    wikimedia: {
       root: exports.CONF_ORIGIN_REMOTE,
       transforms: exports.CONF_TRANSFORMS
     },
@@ -33,7 +36,7 @@ exports.CONF = {
 
 // -------------------- remote
 
-exports.RELATIVE_REMOTE = "nodejs-1024x768.png";
+exports.RELATIVE_REMOTE = "Inter-Con_Kabul.jpg";
 
 // urls
 exports.URL_TRANSFORM_REMOTE = `/${exports.CONF_CONTAINER_REMOTE}/${exports.CONF_TRANSFORM_NAME}/${exports.RELATIVE_REMOTE}`;

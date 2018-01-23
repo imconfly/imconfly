@@ -51,52 +51,52 @@ describe('ContextFormatError throws when URI is', () => {
     () => new context.Context(testConf, "/"),
     context.ContextFormatError
   ));
-  it("/nodejs", () => assert.throws(
-    () => new context.Context(testConf, "/nodejs"),
+  it("/wikimedia", () => assert.throws(
+    () => new context.Context(testConf, "/wikimedia"),
     context.ContextFormatError
   ));
-  it("/nodejs/", () => assert.throws(
-    () => new context.Context(testConf, "/nodejs/"),
+  it("/wikimedia/", () => assert.throws(
+    () => new context.Context(testConf, "/wikimedia/"),
     context.ContextFormatError
   ));
-  it('/nodejs/origin', () => assert.throws(
-    () => new context.Context(testConf, '/nodejs/origin'),
+  it('/wikimedia/origin', () => assert.throws(
+    () => new context.Context(testConf, '/wikimedia/origin'),
     context.ContextFormatError
   ));
-  it('/nodejs/origin/', () => assert.throws(
-    () => new context.Context(testConf, '/nodejs/origin/'),
+  it('/wikimedia/origin/', () => assert.throws(
+    () => new context.Context(testConf, '/wikimedia/origin/'),
     context.ContextFormatError
   ));
-  it('/nodejs/origin/../nodejs-1024x768.png', () => assert.throws(
-    () => new context.Context(testConf, '/nodejs/origin/../nodejs-1024x768.png'),
+  it('/wikimedia/origin/../nodejs-1024x768.png', () => assert.throws(
+    () => new context.Context(testConf, '/wikimedia/origin/../nodejs-1024x768.png'),
     context.ContextFormatError
   ));
   it('/local/origin/../nodejs-1024x768.png', () => assert.throws(
-    () => new context.Context(testConf, '/nodejs/origin/../nodejs-1024x768.png'),
+    () => new context.Context(testConf, '/local/origin/../nodejs-1024x768.png'),
     context.ContextFormatError
   ));
-  it('/nodejs/origin/./nodejs-1024x768.png', () => assert.throws(
-    () => new context.Context(testConf, '/nodejs/origin/./nodejs-1024x768.png'),
+  it('/wikimedia/origin/./nodejs-1024x768.png', () => assert.throws(
+    () => new context.Context(testConf, '/wikimedia/origin/./nodejs-1024x768.png'),
     context.ContextFormatError
   ));
-  it('/nodejs/origin/"', () => assert.throws(
-    () => new context.Context(testConf, '/nodejs/origin/"'),
+  it('/wikimedia/origin/"', () => assert.throws(
+    () => new context.Context(testConf, '/wikimedia/origin/"'),
     context.ContextFormatError
   ));
-  it('/nodejs/origin/&', () => assert.throws(
-    () => new context.Context(testConf, '/nodejs/origin/&'),
+  it('/wikimedia/origin/&', () => assert.throws(
+    () => new context.Context(testConf, '/wikimedia/origin/&'),
     context.ContextFormatError
   ));
-  it('/nodejs/origin/..', () => assert.throws(
-    () => new context.Context(testConf, '/nodejs/origin/..'),
+  it('/wikimedia/origin/..', () => assert.throws(
+    () => new context.Context(testConf, '/wikimedia/origin/..'),
     context.ContextFormatError
   ));
-  it('/nodejs/origin//', () => assert.throws(
-    () => new context.Context(testConf, '/nodejs/origin//'),
+  it('/wikimedia/origin//', () => assert.throws(
+    () => new context.Context(testConf, '/wikimedia/origin//'),
     context.ContextFormatError
   ));
-  it('/nodejs/origin/такнельзя', () => assert.throws(
-    () => new context.Context(testConf, '/nodejs/origin/такнельзя'),
+  it('/wikimedia/origin/такнельзя', () => assert.throws(
+    () => new context.Context(testConf, '/wikimedia/origin/такнельзя'),
     context.ContextFormatError
   ));
 });
