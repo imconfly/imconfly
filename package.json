@@ -39,11 +39,11 @@
     "liftoff": "^2.3.0",
     "mkdirp": "^0.5.1",
     "node-static": "^0.7.9",
-    "request": "^2.79.0"
+    "request": "^2.87.0"
   },
   "devDependencies": {
-    "mocha": "^3.2.0",
+    "mocha": "^3.5.3",
     "rimraf": "^2.5.4",
-    "supertest": "^3.0.0"
+    "supertest": "^3.1.0"
   }
 }
